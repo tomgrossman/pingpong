@@ -1,0 +1,27 @@
+body {
+  background-color: #235279;
+}
+
+.register_container {
+    width: 30%;
+    position: fixed;
+    left: 35%;
+    top: 25%;
+    padding: 50px;
+    text-align: left;
+    color: white;
+}
+
+.form_row {
+    width: 100%;
+    float: left;
+}
+.form_col {
+    width: 45%;
+    float: left;
+}
+.separator {
+    float: left;
+    width: 10%;
+    height: 1px;
+}

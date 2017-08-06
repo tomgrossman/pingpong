@@ -7,7 +7,11 @@
         function ($scope, HttpRequest) {
             $scope.email = '';
             $scope.password = '';
-            $scope.ErrorMessage = ''
+            $scope.ErrorMessage = '';
+
+            $scope.GoToRegister = function () {
+                window.location.replace('/register');
+            };
 
             $scope.Login = function () {
                 if (!$scope.email || !$scope.password) {
