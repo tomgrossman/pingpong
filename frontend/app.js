@@ -3,6 +3,8 @@
 const express       = require('express');
 const bodyParser    = require('body-parser');
 const session       = require('express-session');
+const path          = require('path');
+const serveStatic   = require('serve-static');
 
 const AuthUtils     = require('./middlewares/auth-utils');
 const LoginRoute    = require('./routes/login');
@@ -32,6 +34,14 @@ appServer.use(
             extended: true
         }
     )
+);
+
+appServer.use('/node_modules',
+    serveStatic(path.join(__dirname, 'node_modules'))
+);
+
+appServer.use('/css',
+    serveStatic(path.join(__dirname, 'public/'))
 );
 
 appServer.use(session(AuthUtils.GetSessionOptions(false)));

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <script src="/node_modules/angular/angular.min.js"></script>
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
+    <script type="text/javascript" src="./app.js"></script>
+    <link rel="stylesheet" href="/css/login/index.css">
+</head>
+<body ng-app="LoginApp">
+    <div ng-controller="LoginController">
+        <div class="login_register_container">
+            <div class="form_row" ng-show="true === IsLoginForm">
+                <form name="LoginForm">
+                    <label for="LoginEmail">Email</label>
+                    <input id="LoginEmail" ng-model="LoginEmail" name="LoginEmail" type="email" class="form-control" required>
+                    <label for="LoginPassword">Password</label>
+                    <input id="LoginPassword" ng-model="LoginPassword" name="LoginPassword" type="password" class="form-control" minlength="8" required>
+                    <button class="btn btn-success" type="submit" style="margin-top:20px;" ng-show="true === IsLoginForm" ng-click="Login()"> Log me in!</button>
+                </form>
+            </div>
+            <div class="form_row" ng-show="true === IsRegisterForm">
+                <form name="RegisterForm">
+                    <label for="RegisterEmail">Email</label>
+                    <input id="RegisterEmail" ng-model="RegisterEmail" type="email" class="form-control">
+                    <label for="RegisterPassword1">Password</label>
+                    <input id="RegisterPassword1" ng-model="RegisterPassword1" type="password" class="form-control" minlength="8" required>
+                    <label for="RegisterPassword2">Re enter password</label>
+                    <input id="RegisterPassword2" ng-model="RegisterPassword2" type="password" class="form-control" minlength="8" required>
+                    <div ng-show="true === PasswordDontMatchError">Passwords don't match</div>
+                    <button class="btn btn-success" type="submit" style="margin-top:20px;" ng-show="true === IsRegisterForm" ng-click="Register()"> Register me!</button>
+                </form>
+            </div>
+            <div style="margin-top: 20px;"></div>
+            <button class="btn btn-info" ng-show="false === IsRegisterForm && false === IsLoginForm" ng-click="RegisterClicked()"> Register</button>
+            <button class="btn btn-success" ng-show="false === IsRegisterForm && false === IsLoginForm" ng-click="LoginClicked()"> Login</button>
+            <button class="btn btn-primary" ng-show="true === IsLoginForm || true === IsRegisterForm" ng-click="ResetForms()"> Back</button>
+
+
+        </div>
+    </div>
+</body>
+
+</html>
