@@ -75,6 +75,11 @@ appServer.use(
     MatchesRoute
 );
 
+appServer.use(
+    '/',
+    TableRoute
+);
+
 appServer.listen(
     3333,
     '0.0.0.0',
