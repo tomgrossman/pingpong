@@ -18,7 +18,7 @@ class TournamentManager(
 
     def __init__(self):
         super().__init__()
-        self.lock = threading.Lock()
+        self.lock = threading.RLock()
 
 
     def send_tournament_registration_link(
@@ -54,12 +54,15 @@ class TournamentManager(
     def finalize_tournament_registrations(
         self,
     ):
+        # threshold_time = datetime.datetime.now() - datetime.timedelta(
+        #     hours=24,
+        # )
         threshold_time = datetime.datetime.now() - datetime.timedelta(
-            hours=24,
+            seconds=1,
         )
         for tournament in self.db.get_existing_tournaments():
             if tournament['creation_date'] < threshold_time:
-                self.close_tournament_registrations(
+                self.db.start_tournament(
                     tournament=tournament,
                 )
 
@@ -104,32 +107,36 @@ class TournamentManager(
     ):
         for tournament in self.db.get_existing_tournaments():
             if tournament['active']:
-                curr_stage = tournament['stages'][-1]
-                if curr_stage is []:
+                try:
+                    curr_stage = tournament['stages'][-1]
+                except IndexError:
                     bracket_size = self.get_number_of_brackets_for_player_amount(
                         amount_of_players=len(tournament['initial_attendees']),
                     )
                     for bracket_index in range(1, bracket_size + 1):
 
                         try:
-                            first_player_id = random.choices(tournament['initial_attendees'])
+                            first_player_id = random.choice(tournament['initial_attendees'])
                         except IndexError:
                             first_player_id = None
                         else:
-                            tournament['initial_attendees'].pop(first_player_id)
+                            tournament['initial_attendees'].remove(first_player_id)
 
                         try:
-                            second_player_id = random.choices(tournament['initial_attendees'])
+                            second_player_id = random.choice(tournament['initial_attendees'])
                         except IndexError:
                             second_player_id = None
                         else:
-                            tournament['initial_attendees'].pop(second_player_id)
+                            tournament['initial_attendees'].remove(second_player_id)
                         tournament_match_id = self.create_tournament_match(
                             invitee_id=first_player_id,
                             inviter_id=second_player_id,
                             tournament_type=tournament['tournament_type'],
                         )
-                        tournament['stages'][-1].append(tournament_match_id)
+                        try:
+                            tournament['stages'][-1].append(tournament_match_id)
+                        except Exception:
+                            tournament['stages'] = [[tournament_match_id]]
                         self.db.update_tournament(
                             tournament=tournament,
                             )
@@ -140,21 +147,22 @@ class TournamentManager(
                         second_player = self.db.get_player_by_id(
                             user_id=second_player_id,
                         )
-                        message = self.next_match_message.format(
-                            first_opponent=first_player['full_name'],
-                            second_opponent=second_player['full_name'],
-                        )
-                        for player in (
-                            first_player,
-                            second_player,
-                        ):
-                            self.notifier.notify_slack_user_by_user_email(
-                                    user_email=player['email'],
-                                    message=message,
+                        if first_player is not None and second_player is not None:
+                            message = self.next_match_message.format(
+                                first_opponent=first_player['full_name'],
+                                second_opponent=second_player['full_name'],
                             )
+                            for player in (
+                                first_player,
+                                second_player,
+                            ):
+                                self.notifier.notify_slack_user_by_user_email(
+                                        user_email=player['email'],
+                                        message=message,
+                                )
                 else:
                     winners = []
-                    for match_id in tournament['stages'][-1]:
+                    for match_id in curr_stage:
                         match = self.db.get_match_by_id(
                             match_id=match_id,
                         )
@@ -178,23 +186,23 @@ class TournamentManager(
                                 second_player = self.db.get_player_by_id(
                                     user_id=second_player_id,
                                     )
-                                message = self.next_match_message.format(
-                                    first_opponent=first_player['full_name'],
-                                    second_opponent=second_player['full_name'],
+                                if first_player is not None and second_player is not None:
+                                    message = self.next_match_message.format(
+                                        first_opponent=first_player['full_name'],
+                                        second_opponent=second_player['full_name'],
                                     )
-                                for player in (
-                                    first_player,
-                                    second_player,
-                                ):
-                                    self.notifier.notify_slack_user_by_user_email(
-                                        user_email=player['email'],
-                                        message=message,
-                                    )
+                                    for player in (
+                                        first_player,
+                                        second_player,
+                                    ):
+                                        self.notifier.notify_slack_user_by_user_email(
+                                            user_email=player['email'],
+                                            message=message,
+                                            )
 
                         self.db.update_tournament(
                             tournament=tournament,
                         )
-
 
     def end_tournament(
         self,
@@ -237,7 +245,7 @@ class TournamentManager(
         if amount_of_players > 1:
             for i in range(1, int(amount_of_players)):
                 if 2 ** i >= amount_of_players:
-                    return 2 ** i / 2
+                    return int(2 ** i / 2)
         else:
             return 1
 
@@ -259,7 +267,4 @@ class TournamentManager(
         it = iter(it)
         while True:
             yield next(it), next(it)
-def main():
-    t = TournamentManager()
-    t.create_tournament('monthly')
-main()
+

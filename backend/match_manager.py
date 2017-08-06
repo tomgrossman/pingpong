@@ -1,6 +1,7 @@
 import datetime
 import threading
 import base_manager
+import scorer
 
 
 class MatchManager(
@@ -13,7 +14,8 @@ class MatchManager(
 
     def __init__(self):
         super().__init__()
-        self.lock = threading.Lock()
+        self.lock = threading.RLock()
+        self.scorer = scorer.Scorer()
 
     def get_new_matches_and_send_invite(self):
         for match in self.db.get_matches_with_status(
@@ -133,6 +135,9 @@ class MatchManager(
         self,
         match_id,
     ):
+        self.scorer.assign_points_for_matches()
+
         self.db.finalize_match(
             match_id=match_id,
         )
+
