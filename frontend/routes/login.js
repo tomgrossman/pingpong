@@ -16,7 +16,7 @@ LoginRoute.use(Auth.IsUnAuthenticatedUser);
 
 LoginRoute.use(
     '/',
-    express.static(path.join(__dirname, '../public/login/'))
+    serveStatic(path.join(__dirname, '../public/login/'))
 );
 
 LoginRoute.post(

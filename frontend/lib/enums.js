@@ -1,6 +1,6 @@
 'use strict';
 
-exoprts.Teams = {
+exports.Teams = {
     frontend: 'frontend',
     backend: 'backend',
     analysts: 'analysts',
