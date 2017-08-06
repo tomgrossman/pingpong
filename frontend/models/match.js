@@ -22,4 +22,4 @@ const MatchSchema = new Schema(
     {collection: 'matches'}
 );
 
-module.exports = Db.connection.model('match', DeviceSchema);
+module.exports = Db.connection.model('match', MatchSchema);

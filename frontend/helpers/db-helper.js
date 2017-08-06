@@ -1,16 +1,14 @@
 const Promise       = require('bluebird');
 const mongoose      = require('mongoose');
 
-const DB_URL = 'intsights-pingpong-database';
+const DB_URL = 'mongodb://intsights-pingpong-database/ping_pong';
 
 mongoose.Promise = Promise;
 const connectionOptions = {
     promiseLibrary: Promise,
     useMongoClient: true,
     poolSize: 20,
-    socketTimeout: 0,
     socketTimeoutMS: 0,
-    connectTimeout: 0,
     connectTimeoutMS: 0
 };
 
