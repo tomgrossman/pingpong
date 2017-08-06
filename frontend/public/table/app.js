@@ -71,11 +71,9 @@
                     ngDialog.open(
                         {
                             template: '/html/table/popups/tournament.html',
-                            className: 'ngdialog-theme-default',
-                            scope          : $scope,
-                            controller     : ['$scope', function ($scope) {
-                                debugger;
-                            }]
+                            className: 'tournament-popup',
+                            scope          : $scope
+
                         }
                     )
                 };

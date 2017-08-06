@@ -4,7 +4,6 @@ const Db        = require('./../helpers/db-helper');
 const Schema    = Db.mongoose.Schema;
 
 const Lib       = require('./../lib');
-const MatchModuleSchema = require('./match').MatchModuleSchema;
 
 const TournamentSchema = new Schema(
     {
@@ -51,18 +50,5 @@ const TournamentSchema = new Schema(
     }
 );
 
-TournamentSchema.statics.GetActiveTournament = function () {
-    //return this.aggregate(
-    //    {
-    //        $lookup: {
-    //            from        : 'matches',
-    //            //localField  : 'SourceID'
-    //            foreignField: '_id',
-    //            as          : 'SourceDetails'
-    //        }
-    //    }
-    //)
-    return this.findOne({active: true, registration_open: false}, {stages: true}).lean().exec();
-};
 
 module.exports = Db.connection.model('tournament', TournamentSchema);
