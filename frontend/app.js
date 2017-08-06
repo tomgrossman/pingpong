@@ -2,6 +2,8 @@
 
 const express       = require('express');
 const bodyParser    = require('body-parser');
+const path          = require('path');
+const serveStatic   = require('serve-static');
 
 const LoginRoute    = require('./routes/login');
 const RegisterRoute = require('./routes/register');
@@ -28,6 +30,14 @@ appServer.use(
             extended: true
         }
     )
+);
+
+appServer.use('/node_modules',
+    serveStatic(path.join(__dirname, 'node_modules'))
+);
+
+appServer.use('/css',
+    serveStatic(path.join(__dirname, 'public/'))
 );
 
 appServer.use(
