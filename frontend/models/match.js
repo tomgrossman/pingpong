@@ -19,7 +19,10 @@ const MatchSchema = new Schema(
             accepted_at: Date
         }
     },
-    {collection: 'matches'}
+    {
+        collection: 'matches',
+        versionKey: false
+    }
 );
 
 module.exports = Db.connection.model('match', MatchSchema);
