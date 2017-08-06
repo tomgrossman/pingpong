@@ -5,3 +5,4 @@ frontend/node_modules/
 
 # WebStorm Folder
 .idea
+.slack_token

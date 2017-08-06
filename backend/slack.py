@@ -2,7 +2,7 @@ import slacker
 
 
 class Notifier:
-    api_token = 'xoxp-7265543094-163948479062-223668098486-62b41262fd31d69176bff976869eed94'
+    api_token = open('./.slack_token').read().strip()
     notifier_user_ref = '@pingping'
 
     def __init__(
@@ -32,11 +32,8 @@ class Notifier:
         user = self.get_user_ref_by_email(
             email=email,
         )
-        user_ref = '@{user}'.format(
-            user=user,
-        )
         self.notify_user(
-            user=user_ref,
+            user=user,
             message=message,
         )
 
