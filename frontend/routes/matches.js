@@ -8,21 +8,26 @@ const ReqValidator  = require('./../middlewares/request-validator');
 const ModelUtils    = require('./../models/model-utils');
 const MatchModel    = require('./../models/match');
 
-const TableRoute = express.Router();
+const MatchRoute = express.Router();
 
-TableRoute.use(Auth.IsPasswordAuthenticatedUser);
+MatchRoute.use(Auth.IsPasswordAuthenticatedUser);
 
-TableRoute.post(
+MatchRoute.post(
     '/add-friendly-match/:UserID([A-Fa-f0-9]{24})',
     AddFriendlyMatch
 );
 
-TableRoute.post(
+MatchRoute.post(
     '/add-score/:MatchID([A-Fa-f0-9]{24})',
     ReqValidator({
         winner: Lib.validators.IsValidObjectId
     }),
     AddScoreToMatch
+);
+
+MatchRoute.get(
+    '/get-user-open-matches',
+    GetUserOpenedMatches
 );
 
 function AddFriendlyMatch (Request, Response) {
@@ -94,7 +99,35 @@ function AddScoreToMatch (Request, Response) {
         () => {
             return Response.json(responseJson);
         }
-    )
+    );
 }
 
-module.exports = TableRoute;
+function GetUserOpenedMatches (Request, Response) {
+    let userId  = Request.session.user._id;
+    let responseJson = {
+        Success: false,
+        Data: null
+    };
+
+    return MatchModel.GetOpenMatchesByUserId(userId).then(
+        (ResultMatches) => {
+            responseJson.Data = ResultMatches;
+            responseJson.Success = true;
+
+            return true;
+        }
+    ).catch(
+        (ErrorInst) => {
+            responseJson.Success = false;
+            responseJson.Data = ErrorInst.stack;
+
+            return false;
+        }
+    ).finally(
+        () => {
+            return Response.json(responseJson);
+        }
+    );
+}
+
+module.exports = MatchRoute;
