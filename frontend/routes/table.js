@@ -1,16 +1,25 @@
 'use strict';
 
 const express   = require('express');
+const path      = require('path');
+const serveStatic = require('serve-static');
 
 const Auth      = require('./../middlewares/authentication');
 const UserModel = require('./../models/user');
 
 const TableRoute = express.Router();
 
-TableRoute.use(Auth.IsPasswordAuthenticatedUser);
+//TableRoute.use(Auth.IsPasswordAuthenticatedUser);
+
+TableRoute.use(
+    '/',
+    express.static(path.join(__dirname, '../public/table/'), {
+        index: 'index.html'
+    })
+);
 
 TableRoute.get(
-    '/',
+    '/get-table',
     GetTable
 );
 

@@ -44,6 +44,10 @@ appServer.use('/css',
     serveStatic(path.join(__dirname, 'public/'))
 );
 
+appServer.use('/html',
+    serveStatic(path.join(__dirname, 'public/'))
+);
+
 appServer.use(session(AuthUtils.GetSessionOptions(false)));
 
 appServer.use(

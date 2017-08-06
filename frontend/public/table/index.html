@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <script src="/node_modules/angular/angular.min.js"></script>
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/node_modules/ng-dialog/css/ngDialog.min.css">
+    <link rel="stylesheet" href="/node_modules/ng-dialog/css/ngDialog-theme-default.min.css">
+    <script src="/node_modules/ng-dialog/js/ngDialog.min.js"></script>
+
+
+    <script type="text/javascript" src="./app.js"></script>
+    <link rel="stylesheet" href="/css/table/index.css">
+</head>
+<body ng-app="MainApp">
+    <div ng-controller="MainController">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Ping Pong Is Awesome!</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li ng-click="PlayGame()"><a href="#">Play Game</a></li>
+                    <li ng-click="InsertScore()"><a href="#">Insert Score</a></li>
+                    <li ng-click="Tournament()"><a href="#" ng-show="true === ShouldShowTournament">Tournament</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</body>
+
+</html>
