@@ -3,11 +3,14 @@
 const express	        = require('express');
 
 const Lib               = require('./../lib');
+const Auth              = require('./../middlewares/authentication');
 const ReqValidator      = require('./../middlewares/request-validator');
 const SessionHelper     = require('./../helpers/session-helper');
 const UserModel         = require('./../models/user');
 
 const LoginRoute = express.Router();
+
+LoginRoute.use(Auth.IsUnAuthenticatedUser);
 
 LoginRoute.post(
     '/',
