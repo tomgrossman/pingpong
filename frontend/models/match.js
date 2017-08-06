@@ -3,23 +3,51 @@
 const Db        = require('./../helpers/db-helper');
 const Schema    = Db.mongoose.Schema;
 
+const Lib       = require('./../lib');
+
 const MatchSchema = new Schema(
     {
-        type: String,
-        inviter: Schema.Types.ObjectId,
-        invitee: Schema.Types.ObjectId,
-        invited_at: Date,
-        played_at: Date,
-        status: String,
+        type: {
+            type: String,
+            required: true,
+            enum: Lib.utils.JsonToArray(Lib.enums.MatchTypes)
+        },
+        inviter: {
+            type: Schema.Types.ObjectId,
+            required: true
+        },
+        invitee: {
+            type: Schema.Types.ObjectId,
+            required: true
+        },
+        invited_at: {
+            type: Date,
+            required: true,
+            default: new Date()
+        },
+        played_at: {
+            type: Date,
+            required: false
+        },
+        status: {
+            type: String,
+            required: true,
+            enum: Lib.utils.JsonToArray(Lib.enums.MatchStatus),
+            default: Lib.enums.MatchStatus.new
+        },
         score: {
             winner: Schema.Types.ObjectId,
-            added_score: Schema.Types.ObjectId,
+            score_added_by_user: Schema.Types.ObjectId,
             added_at: Date,
             accepted: Boolean,
             accepted_at: Date
         }
     },
-    {collection: 'matches'}
+    {
+        collection: 'matches',
+        versionKey: false,
+        minimize: false
+    }
 );
 
-module.exports = Db.connection.model('match', DeviceSchema);
+module.exports = Db.connection.model('match', MatchSchema);
