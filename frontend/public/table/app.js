@@ -91,7 +91,7 @@
 
             setInterval(function () {
                 getTable();
-                getTournament();
+               // getTournament();
             }, 5000);
 
 
@@ -104,10 +104,11 @@
 
                         }
                     )
-                };            $scope.InvitePlayer = function () {
+                };
+                $scope.InvitePlayer = function () {
                     ngDialog.open(
                         {
-                            template: '/html/table/popups/play-game.html',
+                            template: '/html/table/popups/invite-player.html',
                             className: 'ngdialog-theme-default',
                             scope          : $scope,
                             controller     : ['$scope', function ($scope) {

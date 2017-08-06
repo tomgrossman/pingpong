@@ -15,6 +15,11 @@ tr:nth-of-type(odd) {
 tr:nth-of-type(even) {
     color: white;
 }
+
+tr.is_self {
+  background: green;
+  color: black;
+}
 th {
   background: #333;
   color: white;
@@ -34,26 +39,11 @@ td, th {
     color: black;
 }
 
-/*
- *  Flex Layout Specifics
-*/
-
-.round .spacer{ flex-grow:1; }
-.round .spacer:first-child,
-.round .spacer:last-child{ flex-grow:.5; }
-
-.round .game-spacer{
-  flex-grow:1;
-}
-
-/*
- *  General Styles
-*/
 
 .tournament-popup .ngdialog-content {
-  width: 700px !important;
-  height: 700px !important;
-  margin-top: 100px;
+  width: 1000px !important;
+  height: 1000px !important;
+  margin-top: 75px;
   margin-left: 250px;
 }
 
@@ -74,4 +64,25 @@ td, th {
 
 .game-bottom{
   border-top:1px solid #aaa;
+}
+
+
+.round-2 {
+  padding-top: 5%;
+}
+
+.round-3 {
+  padding-top: 10%;
+}
+
+.round-4 {
+  padding-top: 15%;
+}
+
+.round-5 {
+  padding-top: 20%;
+}
+
+.round-5 {
+  padding-top: 25%;
 }
