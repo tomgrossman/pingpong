@@ -7,8 +7,8 @@ import schedule
 match_manager = match_manager.MatchManager()
 tournament_manager = tournament_manager.TournamentManager()
 
-@bottle.route('/accept_link/<match_id>')
-def accept_match(
+@bottle.route('/accept_match_invite/<match_id>')
+def accept_match_invite(
     match_id,
 ):
     return match_manager.accept_match_invitation(
@@ -33,7 +33,6 @@ def sign_up_for_tournament(
 
 
 
-
 def init():
     bottle_thread = threading.Thread(
         target=bottle.run,
@@ -45,8 +44,11 @@ def init():
         )
     bottle_thread.start()
     schedule.every(1).minute.do(match_manager.get_new_matches_and_send_invite)
+    schedule.every(1).minute.do(match_manager.get_approval_for_match_result)
     schedule.every(1).day.do(tournament_manager.finalize_tournament_registrations)
-    schedule.every(1).month.do(tournament_manager.create_tournament, tournament_type='monthly')
-    schedule.every(3).month.do(tournament_manager.create_tournament, tournament_type='quarterly')
+    schedule.every(4).weeks.do(tournament_manager.create_tournament, tournament_type='monthly')
+    # schedule.every(13).weeks.do(tournament_manager.create_tournament, tournament_type='quarterly')
 
+    while True:
+        schedule.run_pending()
 init()

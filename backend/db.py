@@ -156,11 +156,12 @@ class PlayersDB:
         tournament_type,
     ):
         tournament = {
-            'type': tournament_type,
+            'tournament_type': tournament_type,
             'initial_attendees': [],
             'stages': [],
             'creation_date': datetime.datetime.now(),
-            'registration_status': 'open',
+            'registration_open': True,
+            'active': False,
         }
         return self.mongo_session.tournaments.insert(
             tournament,
@@ -177,7 +178,7 @@ class PlayersDB:
                 '_id': bson.objectid.ObjectId(tournament_id),
             },
         )
-        if tournament['registration_status'] == 'open':
+        if not tournament['registration_open']:
             try:
                 tournament['initial_attendees'].append(bson.objectid.ObjectId(player_id))
             except TypeError:
@@ -199,10 +200,9 @@ class PlayersDB:
         else:
             raise ValueError('Tournament is closed for registration.')
 
-    def set_tournament_registration_status(
+    def start_tournament(
         self,
         tournament_id,
-        registration_status,
     ):
 
         tournament = self.mongo_session.tournaments.find_one(
@@ -211,13 +211,63 @@ class PlayersDB:
             },
         )
 
-        tournament['registration_status'] = registration_status
+        tournament['registration_open'] = False
+        tournament['active'] = True
         self.mongo_session.tournaments.update(
             {
                 '_id': bson.objectid.ObjectId(tournament_id),
             },
             tournament,
         )
+
+    def end_tournament(
+        self,
+        tournament_id
+    ):
+        tournament = self.mongo_session.tournaments.find_one(
+            filter={
+                '_id': bson.objectid.ObjectId(tournament_id),
+                },
+            )
+
+        tournament['active'] = False
+        self.mongo_session.tournaments.update(
+            {
+                '_id': bson.objectid.ObjectId(tournament_id),
+            },
+            tournament,
+        )
+
+    def create_tournament_match(
+        self,
+        inviter_id,
+        invitee_id,
+        tournament_type,
+    ):
+        match = {
+            "type": tournament_type,
+            "inviter": bson.objectid.ObjectId(inviter_id),
+            "invitee": bson.objectid.ObjectId(invitee_id),
+            "invited_at" : datetime.datetime.now(),
+            "status": "new_tournament",
+            "score": {}
+    }
+        return self.mongo_session.matches.insert(
+            match,
+        )
+
+    def update_tournament(
+        self,
+        tournament,
+    ):
+
+        self.mongo_session.tournaments.update(
+            {
+                '_id': bson.objectid.ObjectId(tournament['_id']),
+            },
+            tournament,
+        )
+
 
 if __name__ == '__main__':
     db = PlayersDB()
