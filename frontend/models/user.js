@@ -29,7 +29,8 @@ const UserShchema = new Schema(
         },
         team: {
             type: String,
-            required: true
+            required: true,
+            enum: Lib.enums.Teams
         },
         points: {
             type: Number,
@@ -38,7 +39,8 @@ const UserShchema = new Schema(
         }
     },
     {
-        collection: 'users'
+        collection: 'users',
+        versionKey: false
     }
 );
 
