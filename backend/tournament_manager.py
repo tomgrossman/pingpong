@@ -1,3 +1,4 @@
+import datetime
 import threading
 
 import base_manager
@@ -43,6 +44,27 @@ class TournamentManager(
         self.send_tournament_registration_link(
             tournament_id=tournament_id,
             tournament_type=tournament_type,
+        )
+
+    def finalize_tournament_registrations(
+        self,
+    ):
+        threshold_time = datetime.datetime.now() - datetime.timedelta(
+            hours=24,
+        )
+        for tournament in self.db.get_existing_tournaments():
+            if tournament['creation_date'] < threshold_time:
+                self.close_tournament_registrations(
+                    tournament=tournament,
+                )
+
+    def close_tournament_registrations(
+        self,
+        tournament,
+    ):
+        self.db.set_tournament_registration_status(
+            tournament_id=tournament['_id'],
+            registration_status='closed',
         )
 
 

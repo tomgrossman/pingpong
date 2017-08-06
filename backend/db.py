@@ -136,6 +136,11 @@ class PlayersDB:
             match,
         )
 
+    def get_existing_tournaments(
+        self,
+    ):
+        return self.mongo_session.tournaments.find()
+
     def get_matches_with_status(
         self,
         status,
@@ -154,7 +159,8 @@ class PlayersDB:
             'type': tournament_type,
             'initial_attendees': [],
             'stages': [],
-            'creation_date': datetime.datetime.now()
+            'creation_date': datetime.datetime.now(),
+            'registration_status': 'open',
         }
         return self.mongo_session.tournaments.insert(
             tournament,
@@ -171,23 +177,47 @@ class PlayersDB:
                 '_id': bson.objectid.ObjectId(tournament_id),
             },
         )
-        try:
-            tournament['initial_attendees'].append(bson.objectid.ObjectId(player_id))
-        except TypeError:
-            tournament['initial_attendees'] = [bson.objectid.ObjectId(player_id)]
+        if tournament['registration_status'] == 'open':
+            try:
+                tournament['initial_attendees'].append(bson.objectid.ObjectId(player_id))
+            except TypeError:
+                tournament['initial_attendees'] = [bson.objectid.ObjectId(player_id)]
 
-        initial_len = len(tournament['initial_attendees'])
-        tournament['initial_attendees'] = list(set(tournament['initial_attendees']))
-        len_after_add = len(tournament['initial_attendees'])
+            initial_len = len(tournament['initial_attendees'])
+            tournament['initial_attendees'] = list(set(tournament['initial_attendees']))
+            len_after_add = len(tournament['initial_attendees'])
 
+            self.mongo_session.tournaments.update(
+                {
+                    '_id': bson.objectid.ObjectId(tournament_id),
+                },
+                tournament,
+            )
+            player_added = initial_len != len_after_add
+
+            return player_added
+        else:
+            raise ValueError('Tournament is closed for registration.')
+
+    def set_tournament_registration_status(
+        self,
+        tournament_id,
+        registration_status,
+    ):
+
+        tournament = self.mongo_session.tournaments.find_one(
+            filter={
+                '_id': bson.objectid.ObjectId(tournament_id),
+            },
+        )
+
+        tournament['registration_status'] = registration_status
         self.mongo_session.tournaments.update(
             {
                 '_id': bson.objectid.ObjectId(tournament_id),
             },
             tournament,
         )
-        player_added = initial_len != len_after_add
 
-        return player_added
 if __name__ == '__main__':
     db = PlayersDB()
