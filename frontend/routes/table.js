@@ -7,9 +7,7 @@ const UserModel = require('./../models/user');
 
 const TableRoute = express.Router();
 
-TableRoute.use(
-    Auth.IsPasswordAuthenticatedUser
-);
+TableRoute.use(Auth.IsPasswordAuthenticatedUser);
 
 TableRoute.get(
     '/',

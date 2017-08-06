@@ -1,8 +1,24 @@
 'use strict';
 
 const validator     = require('validator');
+const Utils         = require('./utils');
 
 exports.IsValidEmail = validator.isEmail;
+
+const IsObjectIdInstance = exports.IsObjectIdInstance = function (Value) {
+    return (Value instanceof Utils.ObjectId);
+};
+
+exports.IsValidObjectId = function (Value) {
+    if (IsObjectIdInstance(Value)) {
+        return true;
+    }
+    if ('string' === typeof Value && 24 === Value.length) {
+        return Utils.ObjectId.isValid(Value);
+    } else {
+        return false;
+    }
+};
 
 const IsPropertyOfEnum = exports.IsPropertyOfEnum = function (Value, Enum) {
     for (let key in Enum) {
