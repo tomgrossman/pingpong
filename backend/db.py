@@ -46,10 +46,21 @@ class PlayersDB:
             except Exception as e:
                 print(str(e))
 
+    def get_all_played_matches(
+        self,
+    ):
+        try:
+            matches_collection = list(self.mongo_session.matches.find())
+            return matches_collection
+
+        except Exception as e:
+            print(str(e))
+
 
 def main():
     db = PlayersDB()
-    print(db.get_all_players())
+    # print(db.get_all_players())
+    print(db.get_all_played_matches())
 
 
 if __name__ == '__main__':
