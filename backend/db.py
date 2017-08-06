@@ -37,7 +37,6 @@ class PlayersDB:
         except Exception as e:
             print(str(e))
 
-
     def delete(
         self,
         _id,
