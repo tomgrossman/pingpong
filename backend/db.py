@@ -178,7 +178,7 @@ class PlayersDB:
                 '_id': bson.objectid.ObjectId(tournament_id),
             },
         )
-        if not tournament['registration_open']:
+        if tournament['registration_open']:
             try:
                 tournament['initial_attendees'].append(bson.objectid.ObjectId(player_id))
             except TypeError:

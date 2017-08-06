@@ -54,9 +54,12 @@ class MatchManager(
                 user_id=score_set_by_user_id
             )
             if winner_id == match['invitee']:
-                winning_user = match['invitee']
+                winning_user_id = match['invitee']
             else:
-                winning_user = match['inviter']
+                winning_user_id = match['inviter']
+            winning_user = self.db.get_player_by_id(
+                user_id=winning_user_id
+            )
 
             self.notifier.notify_slack_user_by_user_email(
                 user_email=confirming_user['email'],
@@ -124,4 +127,12 @@ class MatchManager(
         return 'http://{ip_address}:8080/accept_match_score/{match_id}'.format(
             ip_address=self.get_local_ip_addresses()[0],
             match_id=match['_id'],
+        )
+
+    def accept_match_score(
+        self,
+        match_id,
+    ):
+        self.db.finalize_match(
+            match_id=match_id,
         )
