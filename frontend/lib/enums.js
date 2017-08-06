@@ -15,6 +15,7 @@ exports.MatchTypes = {
 
 exports.MatchStatus = {
     new: 'new',
+    new_tournament: 'new_tournament',
     invited: 'invited',
     accepted: 'accepted',
     played: 'played',

@@ -2,8 +2,10 @@
 
 const express   = require('express');
 
-const Auth      = require('./../middlewares/authentication');
-const TournamentModel = require('./../models/tournament');
+const Lib               = require('./../lib');
+const Auth              = require('./../middlewares/authentication');
+const TournamentModel   = require('./../models/tournament');
+const MatchModel        = require('./../models/match');
 
 const UserRoute = express.Router();
 
@@ -20,9 +22,13 @@ function GetActiveTournament (Request, Response) {
         Data: null
     };
 
-    return TournamentModel.GetActiveTournament().then(
-        (ResultTable) => {
-            responseJson.Data = ResultTable;
+    return TournamentModel.findOne({active: true}).lean().exec().then(
+        (ResultTournament) => {
+            return GetActiveTournamentObject(ResultTournament);
+        }
+    ).then(
+        (ResultObject) => {
+            responseJson.Data = ResultObject;
             responseJson.Success = true;
 
             return true;
@@ -37,6 +43,30 @@ function GetActiveTournament (Request, Response) {
     ).finally(
         () => {
             return Response.json(responseJson);
+        }
+    )
+}
+
+function GetActiveTournamentObject (OrigObj) {
+    if (!OrigObj) {
+        return null;
+    }
+
+    let newObj = OrigObj;
+
+    let matchIds = [].concat.apply([], OrigObj.stages);
+
+    return MatchModel.find({_id: {$in: matchIds}}).lean().exec().then(
+        (ResultMatches) => {
+            newObj.stages = newObj.stages.map((currStage) => {
+                return currStage.map((currSubStage) => {
+                    return ResultMatches.find((currMatch) => {
+                        return Lib.utils.IsEqualObjectId(currMatch._id, currSubStage);
+                    });
+                });
+            });
+
+            return newObj;
         }
     )
 }
