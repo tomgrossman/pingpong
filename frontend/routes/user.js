@@ -7,23 +7,16 @@ const serveStatic = require('serve-static');
 const Auth      = require('./../middlewares/authentication');
 const UserModel = require('./../models/user');
 
-const TableRoute = express.Router();
+const UserRoute = express.Router();
 
-TableRoute.use(Auth.IsPasswordAuthenticatedUser);
+//UserRoute.use(Auth.IsPasswordAuthenticatedUser);
 
-TableRoute.use(
-    '/',
-    express.static(path.join(__dirname, '../public/table/'), {
-        index: 'index.html'
-    })
+UserRoute.get(
+    '/get-user-details',
+    GetUserDetails
 );
 
-TableRoute.get(
-    '/get-table',
-    GetTable
-);
-
-function GetTable (Request, Response) {
+function GetUserDetails (Request, Response) {
     let responseJson = {
         Success: false,
         Data: null
@@ -50,4 +43,4 @@ function GetTable (Request, Response) {
     )
 }
 
-module.exports = TableRoute;
+module.exports = UserRoute;

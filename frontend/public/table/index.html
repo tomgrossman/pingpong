@@ -6,15 +6,18 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
     <script src="/node_modules/angular/angular.min.js"></script>
+
     <script src="/node_modules/jquery/dist/jquery.min.js"></script>
     <script src="/node_modules/bootstrap/dist/js/bootstrap.js"></script>
     <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
+
     <link rel="stylesheet" href="/node_modules/ng-dialog/css/ngDialog.min.css">
     <link rel="stylesheet" href="/node_modules/ng-dialog/css/ngDialog-theme-default.min.css">
     <script src="/node_modules/ng-dialog/js/ngDialog.min.js"></script>
 
 
     <script type="text/javascript" src="./app.js"></script>
+    <script type="text/javascript" src="/static/js/static-services.js"></script>
     <link rel="stylesheet" href="/css/table/index.css">
 </head>
 <body ng-app="MainApp">
@@ -22,15 +25,29 @@
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">Ping Pong Is Awesome!</a>
+                    <a class="navbar-brand" href="#">Ping Pong Is The Shit</a>
                 </div>
-                <ul class="nav navbar-nav">
-                    <li ng-click="PlayGame()"><a href="#">Play Game</a></li>
-                    <li ng-click="InsertScore()"><a href="#">Insert Score</a></li>
+                <ul style="float: right" class="nav navbar-nav">
+                    <li ng-click="InvitePlayer()"><a href="#">Invite a Player</a></li>
+                    <li ng-click="AddScore()"><a href="#">Add Score</a></li>
                     <li ng-click="Tournament()"><a href="#" ng-show="true === ShouldShowTournament">Tournament</a></li>
                 </ul>
             </div>
         </nav>
+        <table class="table">
+            <tr>
+                <th style="border-top:none">Rank</th>
+                <th style="border-top:none">Name</th>
+                <th style="border-top:none">Points</th>
+                <th style="border-top:none">Team</th>
+            </tr>
+            <tr ng-repeat="TableRow in Table track by $index">
+                <td style="border-top:none">{{$index + 1}}</td>
+                <td style="border-top:none">{{TableRow.full_name}}</td>
+                <td style="border-top:none">{{TableRow.points}}</td>
+                <td style="border-top:none">{{TableRow.team}}</td>
+            </tr>
+        </table>
     </div>
 </body>
 
