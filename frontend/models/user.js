@@ -44,4 +44,8 @@ const UserShchema = new Schema(
     }
 );
 
+UserShchema.statics.GetTableUsers = function () {
+    return this.find({}, {full_name: 1, team: 1, points: 1}).sort({points: -1}).lean().exec();
+};
+
 module.exports = Db.connection.model('user', UserShchema);

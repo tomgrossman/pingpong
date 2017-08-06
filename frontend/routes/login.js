@@ -5,7 +5,7 @@ const express	        = require('express');
 const Lib               = require('./../lib');
 const ReqValidator      = require('./../middlewares/request-validator');
 const SessionHelper     = require('./../helpers/session-helper');
-const LoginHelper       = require('./../helpers/route-helpers/login');
+const UserModel         = require('./../models/user');
 
 const LoginRoute = express.Router();
 
@@ -26,7 +26,7 @@ function LoginVerification (Request, Response) {
         Data    : null
     };
 
-    return LoginHelper.LoginVerification(email, password).then(
+    return VerifyLogin(email, password).then(
         (ResultUser) => {
             SessionHelper.SaveAgentSessionDetails(Request, ResultUser);
             responseJson.Success = true;
@@ -43,6 +43,26 @@ function LoginVerification (Request, Response) {
     ).finally(
         () => {
             Response.json(responseJson);
+        }
+    );
+}
+
+function VerifyLogin (UserEmail, Password) {
+    let userObject = null;
+
+    return UserModel.findOne({email: UserEmail}).lean().exec().then(
+        (ResultUser) => {
+            userObject = ResultUser;
+
+            return Lib.utils.ComparePassword(userObject.password, Password);
+        }
+    ).then(
+        (CompareResult) => {
+            if (!CompareResult) {
+                throw new Error('Wrong credentials');
+            }
+
+            return userObject;
         }
     );
 }
