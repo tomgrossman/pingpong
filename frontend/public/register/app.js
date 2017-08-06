@@ -24,6 +24,10 @@
                     value: 'backend'
                 },
                 {
+                    label: 'QA',
+                    value: 'qa'
+                },
+                {
                     label: 'Analysts',
                     value: 'analysts'
                 },

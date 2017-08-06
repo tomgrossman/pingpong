@@ -17,6 +17,10 @@
                     value: 'backend'
                 },
                 {
+                    label: 'QA',
+                    value: 'qa'
+                },
+                {
                     label: 'Analysts',
                     value: 'analysts'
                 },
@@ -52,42 +56,72 @@
                 });
             }
 
-            HttpRequest(
-                {
-                    method: 'GET',
-                    url: '/user/get-user-details'
-                },
-                true
-            ).then(
-                function (data) {
-                    $scope.UserDetails = data.Data;
-                }
-            );
+            function getTournament() {
+                HttpRequest(
+                    {
+                        method: 'GET',
+                        url: '/tournament'
+                    },
+                    true
+                ).then(
+                    function (data) {
+                        $scope.Tournament = data.Data;
+                    }
+                );
+            }
 
+            function getUserDetails () {
+                HttpRequest(
+                    {
+                        method: 'GET',
+                        url: '/user/get-user-details'
+                    },
+                    true
+                ).then(
+                    function (data) {
+                        $scope.UserDetails = data.Data;
+                    }
+                );
+            }
+
+            getUserDetails();
+            getTournament();
             getTable();
+
+
             setInterval(function () {
                 getTable();
+                getTournament();
             }, 5000);
 
-            $scope.InvitePlayer = function () {
-                ngDialog.open(
-                    {
-                        template: '/html/table/popups/play-game.html',
-                        className: 'ngdialog-theme-default',
-                        scope          : $scope,
-                        controller     : ['$scope', function ($scope) {
-                            $scope.ChoosePlayer = function (PlayerToInvite) {
-                                HttpRequest(
-                                    {
-                                        method: 'POST',
-                                        url: '/matches/add-friendly-match/' + PlayerToInvite
-                                    }
-                                ).then(
-                                    function () {
-                                        ngDialog.close();
-                                    }
-                                )
 
+            $scope.ShowTournament = function (Tournament) {
+                    ngDialog.open(
+                        {
+                            template: '/html/table/popups/tournament.html',
+                            className: 'tournament-popup',
+                            scope          : $scope
+
+                        }
+                    )
+                };            $scope.InvitePlayer = function () {
+                    ngDialog.open(
+                        {
+                            template: '/html/table/popups/invite-player.html',
+                            className: 'ngdialog-theme-default',
+                            scope          : $scope,
+                            controller     : ['$scope', function ($scope) {
+                                $scope.ChoosePlayer = function (PlayerToInvite) {
+                                    HttpRequest(
+                                        {
+                                            method: 'POST',
+                                            url: '/matches/add-friendly-match/' + PlayerToInvite
+                                        }
+                                    ).then(
+                                        function () {
+                                            ngDialog.close();
+                                        }
+                                    )
                             }
                         }]
                     }
@@ -113,9 +147,11 @@
                                 controller     : ['$scope', function ($scope) {
                                     $scope.MatchIndex = -1;
                                     $scope.SelectedMatch = {};
-                                    $scope.$watch('MatchIndex', function (newIndex) {
+
+                                    $scope.ChangeMatchIndex = function (newIndex) {
                                         $scope.SelectedMatch = $scope.Matches[newIndex];
-                                    });
+                                    };
+
                                     $scope.AddScore = function (MatchId, Winner) {
                                         HttpRequest(
                                             {
@@ -128,7 +164,6 @@
                                                 ngDialog.close();
                                             }
                                         );
-
                                     }
                                 }]
                             }

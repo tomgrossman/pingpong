@@ -57,7 +57,12 @@ MatchSchema.statics.GetOpenMatchesByUserId = function (UserId) {
                 {inviter: UserId},
                 {invitee: UserId}
             ],
-            status: Lib.enums.MatchStatus.accepted
+            status: {
+                $in: [
+                    Lib.enums.MatchStatus.accepted,
+                    Lib.enums.MatchStatus.new_tournament
+                ]
+            }
         }
     ).lean().exec();
 };

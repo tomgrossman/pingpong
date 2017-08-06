@@ -13,6 +13,7 @@ const RegisterRoute = require('./routes/register');
 const TableRoute    = require('./routes/table');
 const MatchesRoute  = require('./routes/matches');
 const UserRoute     = require('./routes/user');
+const TournamentRoute     = require('./routes/tournament');
 
 const appServer = express();
 
@@ -83,6 +84,11 @@ appServer.use(
 appServer.use(
     '/user',
     UserRoute
+);
+
+appServer.use(
+    '/tournament',
+    TournamentRoute
 );
 
 appServer.use(

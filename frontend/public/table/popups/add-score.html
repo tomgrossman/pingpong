@@ -5,7 +5,7 @@
         </div>
         <form name="AddScoreForm" ng-show="0 < Matches.length">
             <div ng-if="0 < Matches.length">
-                <select ng-model="MatchIndex">
+                <select ng-model="MatchIndex" ng-change="ChangeMatchIndex(MatchIndex)">
                     <option ng-repeat="Match in Matches track by $index"
                             value="{{$index}}">
                         {{Match.type}} - {{IdToName[Match.oponnentId]}}
