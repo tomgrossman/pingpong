@@ -30,7 +30,7 @@ const UserShchema = new Schema(
         team: {
             type: String,
             required: true,
-            enum: Lib.enums.Teams
+            enum: Lib.utils.JsonToArray(Lib.enums.Teams)
         },
         points: {
             type: Number,

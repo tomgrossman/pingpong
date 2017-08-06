@@ -5,3 +5,6 @@ frontend/node_modules/
 
 # WebStorm Folder
 .idea
+
+#css files
+*.css
