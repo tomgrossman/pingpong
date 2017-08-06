@@ -6,8 +6,10 @@ const session       = require('express-session');
 
 const AuthUtils     = require('./middlewares/auth-utils');
 const LoginRoute    = require('./routes/login');
+const LogoutRoute   = require('./routes/logout');
 const RegisterRoute = require('./routes/register');
 const TableRoute    = require('./routes/table');
+const MatchesRoute  = require('./routes/matches');
 
 const appServer = express();
 
@@ -41,7 +43,7 @@ appServer.use(
 
 appServer.use(
     '/logout',
-    LoginRoute
+    LogoutRoute
 );
 
 appServer.use(
@@ -52,6 +54,11 @@ appServer.use(
 appServer.use(
     '/table',
     TableRoute
+);
+
+appServer.use(
+    '/matches',
+    MatchesRoute
 );
 
 appServer.listen(

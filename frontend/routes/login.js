@@ -31,7 +31,7 @@ function LoginVerification (Request, Response) {
 
     return VerifyLogin(email, password).then(
         (ResultUser) => {
-            SessionHelper.SaveAgentSessionDetails(Request, ResultUser);
+            SessionHelper.SaveSessionDetails(Request, ResultUser);
             responseJson.Success = true;
 
             return true;
