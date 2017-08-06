@@ -50,4 +50,16 @@ const MatchSchema = new Schema(
     }
 );
 
+MatchSchema.statics.GetOpenMatchesByUserId = function (UserId) {
+    return this.find(
+        {
+            $or: [
+                {inviter: UserId},
+                {invitee: UserId}
+            ],
+            status: Lib.enums.MatchStatus.accepted
+        }
+    ).lean().exec();
+};
+
 module.exports = Db.connection.model('match', MatchSchema);
