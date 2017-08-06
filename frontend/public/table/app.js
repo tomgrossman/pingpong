@@ -104,7 +104,9 @@
 
                         }
                     )
-                };            $scope.InvitePlayer = function () {
+                };
+
+            $scope.InvitePlayer = function () {
                     ngDialog.open(
                         {
                             template: '/html/table/popups/play-game.html',

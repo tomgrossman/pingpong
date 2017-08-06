@@ -10,8 +10,8 @@ exports.Teams = {
 
 exports.MatchTypes = {
     friendly: 'friendly',
-    weekly_tournament: 'weekly_tournament',
-    monthly_tournament: 'monthly_tournament'
+    weekly: 'weekly',
+    monthly: 'monthly'
 };
 
 exports.MatchStatus = {
@@ -20,9 +20,10 @@ exports.MatchStatus = {
     invited: 'invited',
     accepted: 'accepted',
     played: 'played',
-    score_assigned: 'score_assigned'
+    points_assigned: 'points_assigned'
 };
 
 exports.TournamentTypes = {
-    Monthly: 'monthly'
+    Monthly: 'monthly',
+    weekly: 'weekly',
 };
