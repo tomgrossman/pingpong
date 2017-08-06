@@ -1,5 +1,5 @@
 import pymongo
-
+import pprint
 
 class PlayersDB:
     def __init__(self):
@@ -56,11 +56,16 @@ class PlayersDB:
         except Exception as e:
             print(str(e))
 
+    def get_player_by_id(
+        self,
+        user_id,
+    ):
+        return self.mongo_session.users.find_one({"_id": user_id})
 
 def main():
     db = PlayersDB()
-    # print(db.get_all_players())
-    print(db.get_all_played_matches())
+    # pprint.pprint(db.get_all_players())
+    pprint.pprint(db.get_all_played_matches())
 
 
 if __name__ == '__main__':
