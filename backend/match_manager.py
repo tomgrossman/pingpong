@@ -1,15 +1,84 @@
-class MatchManager:
+import threading
+import base_manager
+
+
+class MatchManager(
+    base_manager.BaseManager,
+):
+    invite_message = '''You have been invited to a {match_type} ping pong match by {inviter_name}.
+    Click here to accept {invite_link}.'''
+    accept_message = '''Your invitation to a {match_type} ping pong match has been accepted by {invitee_name}.'''
+
     def __init__(self):
-        pass
+        super().__init__()
+        self.lock = threading.Lock()
 
     def get_new_matches_and_send_invite(self):
-        pass
+        for match in self.db.get_matches_with_status(
+            status='new',
+        ):
+            invitee = self.db.get_player_by_id(
+                user_id=match['invitee']
+            )
+            inviter = self.db.get_player_by_id(
+                user_id=match['inviter']
+                )
+            self.notifier.notify_slack_user_by_user_email(
+                user_email=invitee['email'],
+                message=self.invite_message.format(
+                    match_type=match['type'],
+                    inviter_name=inviter['full_name'],
+                    invite_link=self.create_match_invite_link(
+                        match=match,
+                    ),
+                ),
+            )
 
     def accept_match_invitation(
         self,
         match_id,
     ):
-        pass
+        with self.lock:
+            match = self.db.get_match_by_id(
+                match_id=match_id,
+            )
+            if match['status'] == 'new':
 
-    def create_match_invite_link(self):
-        pass
+                self.db.accept_match(
+                    match_id=match_id,
+                )
+                inviter = self.db.get_player_by_id(
+                    user_id=match['inviter']
+                    )
+                invitee = self.db.get_player_by_id(
+                    user_id=match['invitee']
+                    )
+                self.notifier.notify_slack_user_by_user_email(
+                    user_email=inviter['email'],
+                    message=self.accept_message.format(
+                        match_type=match['type'],
+                        invitee_name=invitee['full_name'],
+                        ),
+                    )
+
+                return '''
+                <head>
+                <title>Match Accepted</title>
+                </head>
+                <body>
+                    <h1>
+                        Match accepted, you may now close this window.
+                    </h1>
+                </body>'''
+            else:
+                return 'Match already accepted.'
+
+    def create_match_invite_link(
+        self,
+        match,
+    ):
+        return 'http://{ip_address}:8080/accept_link/{match_id}'.format(
+            ip_address=self.get_local_ip_addresses()[0],
+            match_id=match['_id'],
+        )
+

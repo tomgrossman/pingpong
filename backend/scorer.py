@@ -41,7 +41,7 @@ class Scorer:
                     match_loser_id: loser_points,
                 },
             )
-            self.db.finalize_match(
+            self.db.accept_match(
                 match_id=match['_id'],
             )
 
