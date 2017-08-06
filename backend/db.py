@@ -51,7 +51,11 @@ class PlayersDB:
         self,
     ):
         try:
-            matches_collection = list(self.mongo_session.matches.find())
+            matches_collection = list(self.mongo_session.matches.find(
+                filter={
+                    'status': 'played',
+                },
+            ))
             return matches_collection
 
         except Exception as e:
@@ -72,10 +76,14 @@ class PlayersDB:
         users_id_to_points,
     ):
 
-        for user_id,points in users_id_to_points.items():
+        for user_id, points in users_id_to_points.items():
             user = self.get_user_by_id(
                 user_id=user_id,
             )
+            # now = datetime.datetime.now()
+            # if user['email'] == 'benda@intsights.com' and now.day % 2 == 0:
+            #     user['points'] -= 1
+            # else:
             user['points'] += points
             self.mongo_session.users.update(
                 {
@@ -179,12 +187,12 @@ class PlayersDB:
             },
         )
         if tournament['registration_open']:
+            initial_len = len(tournament['initial_attendees'])
             try:
                 tournament['initial_attendees'].append(bson.objectid.ObjectId(player_id))
             except TypeError:
                 tournament['initial_attendees'] = [bson.objectid.ObjectId(player_id)]
 
-            initial_len = len(tournament['initial_attendees'])
             tournament['initial_attendees'] = list(set(tournament['initial_attendees']))
             len_after_add = len(tournament['initial_attendees'])
 
@@ -202,12 +210,12 @@ class PlayersDB:
 
     def start_tournament(
         self,
-        tournament_id,
+        tournament,
     ):
 
         tournament = self.mongo_session.tournaments.find_one(
             filter={
-                '_id': bson.objectid.ObjectId(tournament_id),
+                '_id': bson.objectid.ObjectId(tournament['_id']),
             },
         )
 
@@ -215,7 +223,7 @@ class PlayersDB:
         tournament['active'] = True
         self.mongo_session.tournaments.update(
             {
-                '_id': bson.objectid.ObjectId(tournament_id),
+                '_id': bson.objectid.ObjectId(tournament['_id']),
             },
             tournament,
         )
@@ -267,7 +275,3 @@ class PlayersDB:
             },
             tournament,
         )
-
-
-if __name__ == '__main__':
-    db = PlayersDB()
