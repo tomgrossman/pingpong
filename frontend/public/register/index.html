@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="RegisterApp">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <script src="/node_modules/angular/angular.min.js"></script>
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/register/index.css">
+</head>
+<body>
+    <div ng-controller="RegisterController">
+        <div class="register_container">
+            <form name="RegisterForm">
+                <div class="form_row">
+                    <div class="form_col">
+                        <label for="Email">Email Address</label>
+                        <input id="Email" ng-model="RegisterData.email" name="email" type="email" class="form-control" required>
+                    </div>
+                    <div class="separator"></div>
+                    <div class="form_col">
+                        <label for="FullName">Full Name</label>
+                        <input id="FullName" ng-model="RegisterData.full_name" name="full_name" class="form-control" required>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div class="form_row">
+                    <div class="form_col">
+                        <label for="Password">Password</label>
+                        <input id="Password" ng-model="RegisterData.password" name="password" type="password" class="form-control" required>
+                    </div>
+                    <div class="separator"></div>
+                    <div class="form_col">
+                        <label for="ReTypePassword">Re-Type Password</label>
+                        <input id="ReTypePassword" ng-model="RegisterData.reTypePassword" name="reTypePassword" type="password" class="form-control" required>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div class="form_row">
+                    <div class="form_col">
+                        <label for="Team">Team</label>
+                        <select id="Team" ng-model="RegisterData.team" name="password" type="password" class="form-control" required>
+                            <option ng-repeat="team in Teams" title="team.value">{{team.label}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div class="form_row">
+                    <div class="form_col">
+                        <button class="btn btn-success" style="margin-top:20px;" ng-click="Register()">Register</button>
+                        <label style="color: red" ng-if="ErrorMessage" class="error_label">{{ErrorMessage}}</label>
+                    </div>
+                </div>
+            </form>
+            <div style="margin-top: 20px;"></div>
+        </div>
+    </div>
+    <script type="text/javascript" src="/register/app.js"></script>
+    <script type="text/javascript" src="/static/js/static-services.js"></script>
+</body>
+
+</html>

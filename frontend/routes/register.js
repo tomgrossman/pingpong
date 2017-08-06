@@ -1,6 +1,8 @@
 'use strict';
 
 const express       = require('express');
+const path          = require ('path');
+const serveStatic   = require('serve-static');
 
 const Lib           = require('./../lib');
 const Auth          = require('./../middlewares/authentication');
@@ -11,6 +13,11 @@ const UserModel     = require('./../models/user');
 const RegisterRoute = express.Router();
 
 RegisterRoute.use(Auth.IsUnAuthenticatedUser);
+
+RegisterRoute.use(
+    '/',
+    serveStatic(path.join(__dirname, '../public/register/'))
+);
 
 RegisterRoute.post(
     '/',
