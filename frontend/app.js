@@ -43,7 +43,7 @@ appServer.use(
 appServer.use(
     '/table',
     TableRoute
-)
+);
 
 appServer.listen(
     3333,
