@@ -84,3 +84,23 @@ exports.IsValidPropertyValue = function (Value, Validator) {
 
     return true;
 };
+
+exports.IsValidPassword = function (Value) {
+    let hasLowerCase    = /[a-z]/;
+    let hasUpperCase    = /[A-Z]/;
+    let hasDigit        = /[0-9]/;
+    let hasSpecialChars = /[\!\@\#\$\%\^\&\*\(\)\`\']/;
+    let password        = /^[a-zA-Z0-9\!\@\#\$\%\^\&\*\(\)\`\']{8,20}$/;
+
+    return (hasLowerCase.test(Value) &&
+        hasUpperCase.test(Value) &&
+        hasDigit.test(Value) &&
+        hasSpecialChars.test(Value) &&
+        password.test(Value));
+};
+
+exports.IsValidString = function (Value) {
+    let regex = /^[A-Za-z0-9!@#\$%:\^'",~&\*\?\)\(\+=\._\-\s\\\/]*[A-Za-z0-9][A-Za-z0-9!@#\$%:\^'",~&\*\?\)\(\+=\._\-\s\\\/]*$/;
+
+    return (null !== Value && regex.test(Value));
+};

@@ -4,6 +4,7 @@ const express       = require('express');
 
 const Lib           = require('./../lib');
 const Auth          = require('./../middlewares/authentication');
+const ReqValidator  = require('./../middlewares/request-validator');
 const ModelUtils    = require('./../models/model-utils');
 const UserModel     = require('./../models/user');
 
@@ -13,6 +14,13 @@ RegisterRoute.use(Auth.IsUnAuthenticatedUser);
 
 RegisterRoute.post(
     '/',
+    ReqValidator({
+        email: Lib.validators.IsValidEmail,
+        password: Lib.validators.IsValidPassword,
+        reTypePassword: Lib.validators.IsValidPassword,
+        full_name: Lib.validators.IsValidString,
+        team: Lib.enums.Teams
+    }),
     RegisterUser
 );
 

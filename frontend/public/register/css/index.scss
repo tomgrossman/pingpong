@@ -1,0 +1,557 @@
+@import '../../../../static/css/styles.scss';
+
+/**************************************** INDEX ***************************************************************************************************/
+[ng\:cloak], [ng-cloak], .ng-cloak {
+  display: none !important;
+}
+
+body {
+  //background: $color-bg-blue url('../img/body_bg.png') repeat-x left bottom;
+  background: $color-bg-blue url('/static/img/bg.png') no-repeat center bottom fixed;
+
+}
+
+.growl.growl-error {
+  color: #FFF;
+  background: $color-alert-high;
+}
+
+.growl.growl-notice {
+  color: #FFF;
+  background: $color-green;
+}
+
+
+.main_header {
+  height: 63px;
+  max-height: 63px;
+  background-color: $color-header-blue;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 120;
+  display: table;
+  vertical-align: middle;
+  > div:first-child {
+    width: 95px;
+  }
+  > div {
+    display: table-cell;
+    height: 100%;
+    vertical-align: middle;
+    max-height: 63px;
+    white-space: nowrap;
+  }
+
+  .logo {
+    margin-left: 10px;
+    display: inline-block;
+  }
+
+  .counters_container {
+
+    ul {
+      li:first-child {
+
+      }
+      li {
+        font-family: $font-light;
+        font-weight: 300;
+        background: url('/static/img/parentheses.png') no-repeat left center;
+        font-size: 36px;
+        display: inline-block;
+        padding-left: 17px;
+        margin-left: 28px;
+        color: $color-white;
+
+        span:nth-child(1) {
+          display: inline-block;
+        }
+
+        span:nth-child(2) {
+          font-weight: normal;
+          color: $color-grey;
+          display: inline-block;
+          font-size: 12px;
+          text-transform: uppercase;
+          padding-left: 5px;
+        }
+      }
+    }
+  }
+
+  .links_container {
+    text-align: right;
+    padding-right: 22px;
+    li {
+      display: inline-block;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+
+    .profile {
+      position: relative;
+    }
+    .profile_drop {
+      position: absolute;
+      right: 21px;
+      top: 28px;
+      color: $color-black;
+      font: normal 14px $font-light;
+      text-align: left;
+      background-color: $color-white;
+      border: 1px solid $color-grey;
+      margin: 0;
+
+      > li {
+        display: block;
+        padding: 5px 12px;
+        cursor: pointer;
+        border-bottom: 1px solid $color-grey;
+        margin: 0;
+      }
+      > li:hover {
+        background-color: $color-grey;
+      }
+      > li:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+
+  .timeline_nav {
+    text-align: center;
+
+    > div {
+      border: 1px solid $color-teal;
+      border-radius: 3px;
+      height: 33px;
+      max-width: 264px;
+      width: 100%;
+      min-width: 200px;
+      white-space: nowrap;
+      display: table;
+
+      a {
+        cursor: pointer;
+        display: table-cell;
+        width: 50%;
+        padding-left: 30px;
+        height: 33px;
+        text-transform: uppercase;
+        font: normal 12px/33px $font-light;
+        font-weight: 700;
+        color: $color-white;
+        background-position: 15px center;
+        background-repeat: no-repeat;
+        text-decoration: none;
+      }
+
+      a:first-child {
+        border-right: 1px solid $color-nav-blue;
+      }
+
+      a:hover {
+        background-color: $color-teal;
+      }
+
+      a.selected {
+        background-color: $color-teal;
+      }
+
+      a.timeline {
+        background-image: url('../img/timeline.png');
+      }
+
+      a.inbox {
+        background-image: url('../img/inbox.png');
+      }
+    }
+  }
+}
+
+.main_navigation {
+  top: 63px;
+  width: 104px;
+  position: fixed;
+  background-color: $color-nav-blue;
+  height: 100%;
+  display: block;
+  z-index: 9999;
+
+  li {
+    height: 118px;
+
+    a {
+      display: block;
+      padding-top: 75px;
+      height: 118px;
+      text-transform: uppercase;
+      text-align: center;
+      font: normal 12px $font-light;
+      font-weight: 300;
+      color: $color-white;
+      background-position: 30px 30px;
+      background-repeat: no-repeat;
+      text-decoration: none;
+    }
+
+    a.selected, a.selected:hover {
+      border-left: 3px solid $color-dark-red;
+      background-color: $color-bg-blue;
+      text-indent: -3px;
+      background-position: 27px 30px;
+    }
+
+    a:hover {
+      background-color: $color-blue-3;
+    }
+
+    a.dashboard {
+      background-image: url('../img/dashboard.png');
+    }
+
+    a.alerts {
+      background-image: url('../img/alerts.png');
+    }
+
+    a.reports {
+      background-image: url('../img/reports.png');
+    }
+
+    a.assets {
+      background-image: url('../img/assets_icon.png');
+    }
+
+    a.settings {
+      background-image: url('../img/settings.png');
+    }
+  }
+
+  .bottom_links {
+    //position: absolute;
+    //bottom: 62px;
+    width: 100%;
+    a {
+      background-position: 36px 30px !important;
+    }
+    a.selected, a.selected:hover {
+      background-position: 33px 30px !important;
+    }
+  }
+}
+
+.popup_bg {
+  top: 0;
+  left: 0;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: #006600;
+  opacity: 0;
+  z-index: 60;
+}
+
+.popup_main {
+  text-align: center;
+  .popup {
+    margin: 215px auto 0 auto;
+    background-color: $color-white;
+    position: relative;
+    > div:first-child {
+      width: 368px;
+      padding: 16px;
+      text-align: left;
+      border-bottom: 1px solid $color-light-grey;
+      text-transform: none;
+    }
+
+
+    .footer {
+      height: 45px;
+      background-color: $color-dark-white;
+      display: table-cell;
+      vertical-align: middle;
+      width: 368px;
+      text-align: right;
+      padding-right: 10px;
+    }
+  }
+}
+
+
+.ngdialog.popup_main .ngdialog-content {
+  width: 368px;
+  display: inline-block;
+  left: 0;
+  right: 0;
+  top: 0;
+  margin: auto;
+  bottom: 0;
+  color: #444;
+  font-family: 'Helvetica Neue', sans-serif;
+  position: relative;
+  background-color: transparent;
+}
+
+.ngdialog.popup_main .ngdialog-close {
+  display: none;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  z-index: 50;
+  top: 113px;
+  width: 15px;
+  height: 14px;
+  background: url('/static/img/white_x.png') no-repeat 0 0;
+  text-indent: -999999px;
+}
+
+.button {
+  font: normal 14px $font-light;
+  padding: 9px;
+  display: inline-block;
+  border: none;
+  border-radius: 4px;
+  background-color: $color-btn-blue;
+  color: $color-white;
+  min-width: 80px;
+}
+
+.add_button {
+  background: $color-btn-blue url('/static/img/add.png') no-repeat 5px center;
+  padding-left: 27px !important;
+}
+
+.import_button {
+  background: $color-btn-blue url('/static/img/import_white.png') no-repeat 10px center;
+  padding-left: 20px !important;
+}
+
+.button:hover {
+  //@include animate(.2s, ease-in);
+  background-color: $color-blue-4;
+}
+
+.button_text {
+  @extend .button;
+  color: $color-grey;
+  background: none;
+}
+
+.button_text:hover {
+  @extend .button_text;
+  background-color: $color-light-grey;
+}
+
+.button_green {
+  background-color: $color-green;
+}
+
+.button_green:hover {
+  background-color: $color-dark-green;
+}
+
+.button_dark {
+  background-color: $color-nav-blue;
+}
+
+.button_dark:hover {
+  background-color: $color-black;
+}
+
+.page_container {
+  padding: 90px;
+  margin: auto;
+  text-align: center;
+}
+
+.gui_box {
+  color: $color-white;
+  position: relative;
+  display: inline-block;
+  margin: auto;
+  width: 50%;
+  max-width: 800px;
+  min-width: 500px;
+
+  .box_header {
+    height: 40px;
+    padding-left: 20px;
+    font: normal 14px $font-light;
+    text-transform: uppercase;
+    line-height: 35px;
+    text-align: left;
+    background-color: $color-blue-5;
+  }
+  .box_body {
+    background-color: $color-blue-0;
+    padding: 50px;
+    text-align: left;
+  }
+
+  label, input {
+    display: block;
+    font: normal 14px $font-light;
+    color: $color-white;
+    text-transform: uppercase;
+    width: 100%;
+
+  }
+
+  label {
+    margin-bottom: 15px;
+  }
+
+  input {
+    text-transform: none;
+    color: $color-dark-blue;
+    height: 35px;
+    padding-left: 5px;
+  }
+  .error_message {
+    font: normal 13px $font-light;
+    color: $color-alert-high;
+    margin-bottom: 20px;
+    margin-top: -30px;
+  }
+
+  .forgot_pass_link {
+    font: normal 14px $font-light;
+    color: $color-white;
+    text-transform: uppercase;
+    background: none;
+    border: none;
+  }
+
+  .forgot_pass_link:hover {
+    color: $color-grey;
+  }
+
+  .buttons_con {
+    margin-top: 10px;
+  }
+
+  .field_table {
+    margin-top: 35px;
+    display: table;
+    width: 100%;
+    .table_row:first-child {
+      > div {
+        padding-top: 0px;
+      }
+    }
+    .table_row {
+      display: table-row;
+      > div:nth-child(odd) {
+        width: 49%;
+      }
+      > div {
+        display: table-cell;
+        vertical-align: top;
+        height: 35px;
+        padding-top: 35px;
+        .form_label {
+          font: 300 14px $font-light;
+          display: block;
+          padding: 0 0px 15px 0;
+          text-transform: uppercase;
+          text-align: left;
+        }
+        input.text_field, .dropdown, .dropdown option {
+          width: 100%;
+          border: none;
+          font: normal 14px/35px $font-light;
+          height: 35px;
+          background-color: $color-white;
+          color: $color-dark-blue;
+          padding: 0 6px;
+        }
+
+        input[type=checkbox] {
+          display: none;
+        }
+
+
+        .check_box {
+          cursor: pointer;
+          display: inline-block;
+          color: $color-dark-blue;
+          height: 35px;
+          min-width: 115px;
+          padding-left: 42px;
+          font: normal 14px/35px $font-light;
+          background: $color-white url('/static/img/cb.png') no-repeat 10px center;
+          margin-right: 6px;
+          margin-bottom: 6px;
+          input {
+            display: none;
+          }
+        }
+
+        .check_box.two {
+          width: 48%;
+        }
+
+        .check_box.inline {
+          padding-right: 6px;
+        }
+
+        .check_box:hover {
+          background-color: $color-dark-white2 !important;
+        }
+
+        .check_box.checked {
+          background-image: url('/static/img/cb_checked.png') !important;
+        }
+
+        .btn-group {
+          width: 100%;
+        }
+        .btn {
+          display: block;
+          padding: 6px 12px;
+          border: none;
+          border-radius: 0px;
+        }
+
+        .btn-default {
+          color: $color-dark-blue;
+          background-color: $color-white;
+        }
+
+        .btn-default:hover {
+          background-color: #eee;
+        }
+
+        .dropdown-toggle {
+          width: 100%;
+          text-align: left;
+          height: 35px;
+          font: normal 14px $font-light;
+          .caret {
+            position: absolute;
+            right: 15px;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+          }
+        }
+
+        .dropdown-menu {
+          width: 100%;
+          border-radius: 0;
+          top: 102%;
+          border: none;
+        }
+      }
+      > div.spacer {
+        width: 2%;
+      }
+    }
+  }
+
+  .buttons_container {
+    margin-top: 35px;
+  }
+}
