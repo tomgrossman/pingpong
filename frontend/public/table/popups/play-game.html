@@ -1,0 +1,12 @@
+<div>
+    <form name="InvitePlayerForm">
+        <label for="PlayerToInvite"></label>
+        <select name="PlayerToInvite" id="PlayerToInvite" ng-model="PlayerToInvite">
+            <option value="">Choose an opponent</option>
+            <option ng-repeat="TableRow in Table" ng-if="TableRow._id !== UserDetails._id" value="{{TableRow._id}}">{{TableRow.full_name}}</option>
+        </select>
+        <div style="margin-top: 20px;">
+            <button ng-disabled="!PlayerToInvite" class="btn" ng-class="{'btn-info': !PlayerToInvite, 'btn-success': PlayerToInvite}" ng-click="ChoosePlayer(PlayerToInvite)">Match us up!</button>
+        </div>
+    </form>
+</div>

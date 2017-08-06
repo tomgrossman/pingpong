@@ -2,9 +2,9 @@
 
 const express       = require('express');
 const bodyParser    = require('body-parser');
+const session       = require('express-session');
 const path          = require('path');
 const serveStatic   = require('serve-static');
-const session       = require('express-session');
 
 const AuthUtils     = require('./middlewares/auth-utils');
 const LoginRoute    = require('./routes/login');
@@ -12,6 +12,7 @@ const LogoutRoute   = require('./routes/logout');
 const RegisterRoute = require('./routes/register');
 const TableRoute    = require('./routes/table');
 const MatchesRoute  = require('./routes/matches');
+const UserRoute     = require('./routes/user');
 
 const appServer = express();
 
@@ -36,6 +37,8 @@ appServer.use(
     )
 );
 
+appServer.use(session(AuthUtils.GetSessionOptions(false)));
+
 appServer.use('/node_modules',
     serveStatic(path.join(__dirname, 'node_modules'))
 );
@@ -44,11 +47,13 @@ appServer.use('/css',
     serveStatic(path.join(__dirname, 'public/'))
 );
 
+appServer.use('/html',
+    serveStatic(path.join(__dirname, 'public/'))
+);
+
 appServer.use('/static',
     serveStatic(path.join(__dirname, 'public/static'))
 );
-
-appServer.use(session(AuthUtils.GetSessionOptions(false)));
 
 appServer.use(
     '/login',
@@ -73,6 +78,11 @@ appServer.use(
 appServer.use(
     '/matches',
     MatchesRoute
+);
+
+appServer.use(
+    '/user',
+    UserRoute
 );
 
 appServer.use(
