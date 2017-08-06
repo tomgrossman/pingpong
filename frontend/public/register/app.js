@@ -11,7 +11,7 @@
                 password: '',
                 reTypePassword: '',
                 full_name: '',
-                team: ''
+                team: 'frontend'
             };
 
             $scope.Teams = [
