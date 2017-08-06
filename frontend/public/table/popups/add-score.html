@@ -3,14 +3,29 @@
         <div ng-if="0 === Matches.length">
             You have no pending mathces
         </div>
-        <form name="AddScoreForm" ng-if="0 < Matches.length">
-            <div ng-repeat="Match in Matches">
-                <label> Who won?</label>
-                <input type="radio" name="Winner" ng-model="Match.Winner" ng-value="Match.OpponentId"> {{Match.OpponentName}}</input>
-                <input type="radio" name="Winner" ng-model="Match.Winner" ng-value="UserDetails._id">{{UserDetails.full_name}}</input>
-                <div style="margin-top: 20px; margin-bottom: 20px;">
-                    <button ng-show="Match.Winner === UserDetails._id" class="btn btn-success" ng-click="AddScore(Match._id, Match.Winner)">Yeap, I rock!</button>
-                    <button ng-show="Match.Winner === Match.OpponentId" class="btn btn-danger" ng-click="AddScore(Match._id, Match.Winner)">Yeap, I'm worthless :(</button>
+        <form name="AddScoreForm" ng-show="0 < Matches.length">
+            <div ng-if="0 < Matches.length">
+                <select ng-model="MatchIndex">
+                    <option ng-repeat="Match in Matches track by $index"
+                            value="{{$index}}">
+                        {{Match.type}} - {{IdToName[Match.oponnentId]}}
+                    </option>
+                </select>
+                <div ng-if="-1 < MatchIndex">
+                    <label> Who won?</label>
+                    <div class="clear"></div>
+                    <div ng-for="self_winner">
+                        <input type="radio" id="self_winner" name="Winner" ng-model="SelectedMatch.Winner" ng-value="UserDetails._id"> Me</input>
+                    </div>
+                    <div class="clear"></div>
+                    <div ng-for="other_winner">
+                        <input type="radio" id="other_winner" name="Winner" ng-model="SelectedMatch.Winner" ng-value="SelectedMatch.oponnentId"> {{IdToName[SelectedMatch.oponnentId]}}</input>
+                    </div>
+                    <div class="clear"></div>
+                    <div ng-if="SelectedMatch.Winner" style="margin-top: 20px; margin-bottom: 20px;">
+                        <button ng-show="SelectedMatch.Winner === UserDetails._id" class="btn btn-success" ng-click="AddScore(SelectedMatch._id, SelectedMatch.Winner)">Yeap, I rock!</button>
+                        <button ng-show="SelectedMatch.Winner === SelectedMatch.oponnentId" class="btn btn-danger" ng-click="AddScore(SelectedMatch._id, SelectedMatch.Winner)">Yeap, I'm worthless :(</button>
+                    </div>
                 </div>
             </div>
         </form>

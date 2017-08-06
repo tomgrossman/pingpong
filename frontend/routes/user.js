@@ -1,8 +1,6 @@
 'use strict';
 
 const express   = require('express');
-const path      = require('path');
-const serveStatic = require('serve-static');
 
 const Auth      = require('./../middlewares/authentication');
 const UserModel = require('./../models/user');
@@ -17,12 +15,13 @@ UserRoute.get(
 );
 
 function GetUserDetails (Request, Response) {
+    let userId  = Request.session.user._id;
     let responseJson = {
         Success: false,
         Data: null
     };
 
-    return UserModel.findOne({_id: Request.session.user._id}).then(
+    return UserModel.findById(userId).then(
         (ResultTable) => {
             responseJson.Data = ResultTable;
             responseJson.Success = true;

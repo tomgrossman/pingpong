@@ -2,133 +2,140 @@
     var MainApp = angular.module('MainApp', ['ngDialog', 'StaticServices']);
 
     var mainController = MainApp.controller('MainController',
-        [
-            '$scope',
-            'ngDialog',
-            'HttpRequest',
-            function ($scope, ngDialog, HttpRequest) {
-                $scope.ShouldShowTournament = false;
-                $scope.Table = [];
-                $scope.IdToName = {};
+        function ($scope, ngDialog, HttpRequest) {
+            $scope.ShouldShowTournament = false;
+            $scope.FullTable = [];
+            $scope.FilteredTable = [];
+            $scope.IdToName = {};
+            $scope.Teams = [
+                {
+                    label: 'Frontend',
+                    value: 'frontend'
+                },
+                {
+                    label: 'Backend',
+                    value: 'backend'
+                },
+                {
+                    label: 'Analysts',
+                    value: 'analysts'
+                },
+                {
+                    label: 'Product',
+                    value: 'product'
+                }
+            ];
+            $scope.TeamFilter = 'all';
 
-                var getTable = function () {
-                    return HttpRequest({
-                        method: 'GET',
-                        url: '/table/get-table'
-                    }, true).then(
-                        function (data) {
-                            $scope.Table = data.Data;
-                            $scope.Table.forEach(function (TableRow) {
-                                $scope.IdToName[TableRow._id] = TableRow.full_name;
-                            })
-                        }
-                    )
-                };
-                getTable().catch(
-                    function () {
-                        //Popup mannger something went wrong
+            function getTable() {
+                return HttpRequest({
+                    method: 'GET',
+                    url: '/table/get-table'
+                }, true).then(
+                    function (data) {
+                        $scope.FullTable = data.Data;
+                        $scope.FullTable.forEach(function (TableRow) {
+                            $scope.IdToName[TableRow._id] = TableRow.full_name;
+                        });
+                        FilterTableByTeam();
+                    }
+                )
+            }
+
+            $scope.$watch('TeamFilter', function () {
+                FilterTableByTeam();
+            });
+
+            function FilterTableByTeam () {
+                $scope.Table = $scope.FullTable.filter(function (currRow) {
+                    return ('all' === $scope.TeamFilter || $scope.TeamFilter === currRow.team);
+                });
+            }
+
+            HttpRequest(
+                {
+                    method: 'GET',
+                    url: '/user/get-user-details'
+                },
+                true
+            ).then(
+                function (data) {
+                    $scope.UserDetails = data.Data;
+                }
+            );
+
+            getTable();
+            setInterval(function () {
+                getTable();
+            }, 5000);
+
+            $scope.InvitePlayer = function () {
+                ngDialog.open(
+                    {
+                        template: '/html/table/popups/play-game.html',
+                        className: 'ngdialog-theme-default',
+                        scope          : $scope,
+                        controller     : ['$scope', function ($scope) {
+                            $scope.ChoosePlayer = function (PlayerToInvite) {
+                                HttpRequest(
+                                    {
+                                        method: 'POST',
+                                        url: '/matches/add-friendly-match/' + PlayerToInvite
+                                    }
+                                ).then(
+                                    function () {
+                                        ngDialog.close();
+                                    }
+                                )
+
+                            }
+                        }]
                     }
                 );
+            };
 
-                HttpRequest(
-                    {
+            $scope.AddScore = function () {
+                HttpRequest({
                         method: 'GET',
-                        url: '/user/get-user-details'
-                    },
-                    true
+                        url   : '/matches/get-user-open-matches'
+                    }, true
                 ).then(
                     function (data) {
-                        $scope.UserDetails = data.Data;
+                        $scope.Matches = data.Data.map(function (currMatch) {
+                            currMatch.oponnentId = ($scope.UserDetails._id === currMatch.invitee) ? currMatch.inviter : currMatch.invitee;
+                            return currMatch;
+                        });
+                        ngDialog.open(
+                            {
+                                template: '/html/table/popups/add-score.html',
+                                className: 'ngdialog-theme-default',
+                                scope          : $scope,
+                                controller     : ['$scope', function ($scope) {
+                                    $scope.MatchIndex = -1;
+                                    $scope.SelectedMatch = {};
+                                    $scope.$watch('MatchIndex', function (newIndex) {
+                                        $scope.SelectedMatch = $scope.Matches[newIndex];
+                                    });
+                                    $scope.AddScore = function (MatchId, Winner) {
+                                        HttpRequest(
+                                            {
+                                                method: 'POST',
+                                                url: '/matches/add-score/' + MatchId,
+                                                data: {winner: Winner}
+                                            }
+                                        ).then(
+                                            function () {
+                                                ngDialog.close();
+                                            }
+                                        );
+
+                                    }
+                                }]
+                            }
+                        );
                     }
-                );
-
-
-
-                setInterval(function () {
-                    getTable();
-                }, 5000);
-
-
-                $scope.InvitePlayer = function () {
-                    ngDialog.open(
-                        {
-                            template: '/html/table/popups/play-game.html',
-                            className: 'ngdialog-theme-default',
-                            scope          : $scope,
-                            controller     : ['$scope', function ($scope) {
-                                $scope.ChoosePlayer = function (PlayerToInvite) {
-                                    HttpRequest(
-                                        {
-                                            method: 'POST',
-                                            url: '/matches/add-friendly-match/' + PlayerToInvite
-                                        }
-                                    ).then(
-                                        function () {
-                                            ngDialog.close();
-                                        }
-                                    )
-
-                                }
-                            }]
-                        }
-                    );
-                }
-
-                $scope.AddScore = function () {
-                    HttpRequest({
-                            method: 'GET',
-                            url   : '/matches/get-user-open-matches'
-                        }, true
-                    ).then(
-                        function (data) {
-                            $scope.Matches = [];
-                            data.Data.forEach(function (Match) {
-                                var match = {Winner: '', _id: Match._id};
-                                if ($scope.IdToName[Match.inviter] && Match.inviter !== $scope.UserDetails._id) {
-                                    match.OpponentName = $scope.IdToName[Match.inviter];
-                                    match.OpponentId = Match.inviter;
-                                } else if ($scope.IdToName[Match.invitee] && Match.invitee !== $scope.UserDetails._id) {
-                                    match.OpponentName = $scope.IdToName[Match.invitee];
-                                    match.OpponentId = Match.invitee;
-                                }
-                                $scope.Matches.push(match);
-                            });
-                            ngDialog.open(
-                                {
-                                    template: '/html/table/popups/add-score.html',
-                                    className: 'ngdialog-theme-default',
-                                    scope          : $scope,
-                                    controller     : ['$scope', function ($scope) {
-                                        $scope.AddScore = function (MatchId, Winner) {
-                                            HttpRequest(
-                                                {
-                                                    method: 'POST',
-                                                    url: '/matches/add-score/' + MatchId,
-                                                    data: {winner: Winner}
-                                                }
-                                            ).then(
-                                                function () {
-                                                    debugger;
-                                                    var removeIndex = $scope.Matches.findIndex(function (Match) {
-                                                        return Match._id === MatchId;
-                                                    });
-                                                    $scope.Matches.splice(removeIndex, 1);
-
-                                                    if (0 === $scope.Matchs.length) {
-                                                        ngDialog.close();
-                                                    }
-                                                }
-                                            );
-
-                                        }
-                                    }]
-                                }
-                            );
-                        }
-                    )
-                }
-
+                )
             }
-        ]
+        }
     )
 }());

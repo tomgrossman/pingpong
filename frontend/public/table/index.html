@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="/node_modules/ng-dialog/css/ngDialog-theme-default.min.css">
     <script src="/node_modules/ng-dialog/js/ngDialog.min.js"></script>
 
-
     <script type="text/javascript" src="./app.js"></script>
     <script type="text/javascript" src="/static/js/static-services.js"></script>
     <link rel="stylesheet" href="/css/table/index.css">
@@ -27,25 +26,34 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#">Ping Pong Is The Shit</a>
                 </div>
-                <ul style="float: right" class="nav navbar-nav">
+                <ul class="nav navbar-nav">
                     <li ng-click="InvitePlayer()"><a href="#">Invite a Player</a></li>
                     <li ng-click="AddScore()"><a href="#">Add Score</a></li>
                     <li ng-click="Tournament()"><a href="#" ng-show="true === ShouldShowTournament">Tournament</a></li>
                 </ul>
+
+                <ul class="nav navbar-nav" style="float: right">
+                    <li ng-click="Logout()"><a href="/logout">Logout</a></li>
+                </ul>
             </div>
         </nav>
-        <table class="table">
+        <table>
             <tr>
-                <th style="border-top:none">Rank</th>
-                <th style="border-top:none">Name</th>
-                <th style="border-top:none">Points</th>
-                <th style="border-top:none">Team</th>
+                <th>Rank</th>
+                <th>Name</th>
+                <th>Points</th>
+                <th>
+                    <select ng-model="TeamFilter" class="team_select">
+                        <option class="team_option">all</option>
+                        <option class="team_option" ng-repeat="team in Teams">{{team.value}}</option>
+                    </select>
+                </th>
             </tr>
             <tr ng-repeat="TableRow in Table track by $index">
-                <td style="border-top:none">{{$index + 1}}</td>
-                <td style="border-top:none">{{TableRow.full_name}}</td>
-                <td style="border-top:none">{{TableRow.points}}</td>
-                <td style="border-top:none">{{TableRow.team}}</td>
+                <td>{{$index + 1}}</td>
+                <td>{{TableRow.full_name}}</td>
+                <td>{{TableRow.points}}</td>
+                <td>{{TableRow.team}}</td>
             </tr>
         </table>
     </div>
