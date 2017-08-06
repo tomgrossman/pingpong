@@ -24,29 +24,61 @@
                         }
                     )
                 };
+
+                var getTournament = function () {
+                    HttpRequest(
+                        {
+                            method: 'GET',
+                            url: '/tournament'
+                        },
+                        true
+                    ).then(
+                        function (data) {
+                            $scope.Tournament = data.Data;
+                        }
+                    );
+                };
+
+                var getUserDetails = function () {
+                    HttpRequest(
+                        {
+                            method: 'GET',
+                            url: '/user/get-user-details'
+                        },
+                        true
+                    ).then(
+                        function (data) {
+                            $scope.UserDetails = data.Data;
+                        }
+                    );
+                };
+
+                getUserDetails();
+                getTournament();
                 getTable().catch(
                     function () {
                         //Popup mannger something went wrong
                     }
                 );
 
-                HttpRequest(
-                    {
-                        method: 'GET',
-                        url: '/user/get-user-details'
-                    },
-                    true
-                ).then(
-                    function (data) {
-                        $scope.UserDetails = data.Data;
-                    }
-                );
-
-
 
                 setInterval(function () {
                     getTable();
+                    getTournament();
                 }, 5000);
+
+                $scope.ShowTournament = function (Tournament) {
+                    ngDialog.open(
+                        {
+                            template: '/html/table/popups/tournament.html',
+                            className: 'ngdialog-theme-default',
+                            scope          : $scope,
+                            controller     : ['$scope', function ($scope) {
+                                debugger;
+                            }]
+                        }
+                    )
+                };
 
 
                 $scope.InvitePlayer = function () {
@@ -108,7 +140,6 @@
                                                 }
                                             ).then(
                                                 function () {
-                                                    debugger;
                                                     var removeIndex = $scope.Matches.findIndex(function (Match) {
                                                         return Match._id === MatchId;
                                                     });

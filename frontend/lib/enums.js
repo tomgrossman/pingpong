@@ -20,3 +20,7 @@ exports.MatchStatus = {
     played: 'played',
     score_assigned: 'score_assigned'
 };
+
+exports.TournamentTypes = {
+    Monthly: 'monthly'
+};
