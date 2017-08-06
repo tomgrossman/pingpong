@@ -5,7 +5,7 @@ import datetime
 
 class PlayersDB:
     def __init__(self):
-        self.mongo_session = pymongo.MongoClient('10.0.0.232').ping_pong
+        self.mongo_session = pymongo.MongoClient('127.0.0.1').ping_pong
 
     def get_all_players(self):
         try:

@@ -55,11 +55,11 @@ def init():
 
     )
     bottle_thread.start()
-    schedule.every(1).seconds.do(match_manager.get_new_matches_and_send_invite)
-    schedule.every(1).seconds.do(match_manager.get_approval_for_match_result)
-    # schedule.every(1).day.do(tournament_manager.finalize_tournament_registrations)
-    # schedule.every(4).weeks.do(tournament_manager.create_tournament, tournament_type='monthly')
-    # schedule.every(1).minutes.do(tournament_manager.create_next_stage_and_send_invites)
+    schedule.every(20).seconds.do(match_manager.get_new_matches_and_send_invite)
+    schedule.every(20).seconds.do(match_manager.get_approval_for_match_result)
+    # schedule.every(20).seconds.do(tournament_manager.finalize_tournament_registrations)
+    # schedule.every(20).seconds.do(tournament_manager.create_tournament, tournament_type='monthly')
+    # schedule.every(20).seconds.do(tournament_manager.create_next_stage_and_send_invites)
     #
     while True:
         schedule.run_pending()
