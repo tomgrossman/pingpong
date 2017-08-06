@@ -1,11 +1,11 @@
 'use strict';
 
-exports.Teams = [
-    'frontend',
-    'backend',
-    'analysts',
-    'product'
-];
+exports.Teams = {
+    frontend: 'frontend',
+    backend: 'backend',
+    analysts: 'analysts',
+    product: 'product'
+};
 
 exports.MatchTypes = {
     friendly: 'friendly',

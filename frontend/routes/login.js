@@ -1,8 +1,8 @@
 'use strict';
 
-const express	        = require('express');
-const path              = require ('path');
-const serveStatic       = require('serve-static');
+const express	    = require('express');
+const path          = require ('path');
+const serveStatic   = require('serve-static');
 
 const Lib               = require('./../lib');
 const Auth              = require('./../middlewares/authentication');

@@ -36,6 +36,8 @@ appServer.use(
     )
 );
 
+appServer.use(session(AuthUtils.GetSessionOptions(false)));
+
 appServer.use('/node_modules',
     serveStatic(path.join(__dirname, 'node_modules'))
 );
@@ -48,7 +50,9 @@ appServer.use('/html',
     serveStatic(path.join(__dirname, 'public/'))
 );
 
-appServer.use(session(AuthUtils.GetSessionOptions(false)));
+appServer.use('/static',
+    serveStatic(path.join(__dirname, 'public/static'))
+);
 
 appServer.use(
     '/login',

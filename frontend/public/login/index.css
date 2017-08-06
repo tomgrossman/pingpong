@@ -3,12 +3,11 @@ body {
 }
 
 .login_register_container {
-  width: 30%;
-  position: fixed;
-  left: 35%;
-  top: 25%;
-}
-.login_register_container {
-  padding: 50px;
-  text-align: left;
+    width: 30%;
+    position: fixed;
+    left: 35%;
+    top: 25%;
+    padding: 50px;
+    text-align: left;
+    color: white;
 }

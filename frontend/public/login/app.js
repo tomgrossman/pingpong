@@ -1,45 +1,39 @@
 (function() {
-    var LoginApp = angular.module('LoginApp', []);
+    var LoginApp = angular.module('LoginApp', [
+        'StaticServices'
+    ]);
 
     var loginController = LoginApp.controller('LoginController',
-        [
-            '$scope',
-            function ($scope) {
-                $scope.IsLoginForm = false;
-                $scope.IsRegisterForm = false;
+        function ($scope, HttpRequest) {
+            $scope.email = '';
+            $scope.password = '';
+            $scope.ErrorMessage = ''
 
-                $scope.LoginEmail = '';
+            $scope.Login = function () {
+                if (!$scope.email || !$scope.password) {
+                    return;
+                }
 
-                $scope.RegisterEmail = '';
-                $scope.RegisterPassword1 = '';
-                $scope.RegisterPassword2 = '';
-
-                $scope.LoginClicked = function () {
-                    $scope.IsLoginForm = true;
-                    $scope.IsRegisterForm = false;
-                };
-                $scope.RegisterClicked = function () {
-                    $scope.IsRegisterForm = true;
-                    $scope.IsLoginForm = false;
-                };
-                $scope.ResetForms = function () {
-                    $scope.IsLoginForm = false;
-                    $scope.IsRegisterForm = false;
-                };
-
-                $scope.Login = function () {
-                    if (!$scope.LoginEmail || !$scope.LoginPassword) {
-                        return;
+                HttpRequest(
+                    {
+                        url: '/login/',
+                        method: 'POST',
+                        data: {
+                            email: $scope.email,
+                            password: $scope.password
+                        }
                     }
-                };
-                $scope.Register = function () {
-                    if (!$scope.RegisterEmail || !$scope.RegisterPassword1 || !$scope.RegisterPassword2) {
-                        return;
-                    }  if ($scope.RegisterPassword1 !== $scope.RegisterPassword2) {
-                        $scope.PasswordDontMatchError = true;
+                ).then(
+                    function () {
+                        $scope.FormSend = false;
+                        window.location.replace('/');
+                    },
+                    function (data) {
+                        $scope.FormSend = false;
+                        $scope.ErrorMessage = data.Data;
                     }
-                };
-            }
-        ]
+                );
+            };
+        }
     )
 }());
