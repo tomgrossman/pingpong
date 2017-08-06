@@ -68,7 +68,10 @@ function RegisterUser (Request, Response) {
     ).catch(
         (ErrorInst) => {
             console.log(ErrorInst.message);
-            responseJson.Data = ErrorInst.stack;
+            responseJson.Data = ErrorInst.message;
+            if (-1 < ErrorInst.message.indexOf('duplicate key error')) {
+                responseJson.Data = 'MailAlreadyExists';
+            }
 
             return false;
         }

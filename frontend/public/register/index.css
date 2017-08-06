@@ -14,6 +14,7 @@ body {
 
 .form_row {
     width: 100%;
+    float: left;
 }
 .form_col {
     width: 45%;

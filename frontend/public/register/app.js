@@ -34,7 +34,13 @@
             ];
 
             $scope.Register = function () {
-                if (!$scope.email || !$scope.password) {
+                $scope.ErrorMessage = '';
+                if (!$scope.RegisterForm.$valid) {
+                    return;
+                }
+
+                if ($scope.RegisterData.password !== $scope.RegisterData.reTypePassword) {
+                    $scope.ErrorMessage = 'Passwords does not match';
                     return;
                 }
 
@@ -47,11 +53,23 @@
                 ).then(
                     function () {
                         $scope.FormSend = false;
-                        window.location.replace('/');
+                        window.location.replace('/login');
                     },
                     function (data) {
                         $scope.FormSend = false;
-                        $scope.ErrorMessage = data.Data;
+                        var errMsg = data.Data;
+                        switch (errMsg) {
+                            case 'Invalidpassword':
+                                $scope.ErrorMessage = 'Password too weak.';
+                                break;
+
+                            case 'MailAlreadyExists':
+                                $scope.ErrorMessage = 'Email address already exists';
+                                break;
+
+                            default:
+                                $scope.ErrorMessage = errMsg;
+                        }
                     }
                 );
             };

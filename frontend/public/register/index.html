@@ -42,8 +42,8 @@
                 <div class="form_row">
                     <div class="form_col">
                         <label for="Team">Team</label>
-                        <select id="Team" ng-model="RegisterData.team" name="password" type="password" class="form-control" required>
-                            <option ng-repeat="team in Teams" title="team.value">{{team.label}}</option>
+                        <select id="Team" ng-model="RegisterData.team" name="password" type="password" class="form-control">
+                            <option ng-repeat="team in Teams">{{team.value}}</option>
                         </select>
                     </div>
                 </div>
