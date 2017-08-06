@@ -1,12 +1,18 @@
 <div>
     <form name="AddScoreForm">
-        <label for="PlayerToInvite"></label>
-        <select name="PlayerToInvite" id="PlayerToInvite" ng-model="PlayerToInvite">
-            <option value="">Please Select</option>
-            <option ng-repeat="TableRow in Table" value="{{TableRow._id}}">{{TableRow.full_name}}</option>
-        </select>
-        <div style="margin-top: 20px;">
-            <button ng-disabled="!PlayerToInvite" class="btn" ng-class="{'btn-info': !PlayerToInvite, 'btn-success': PlayerToInvite}" ng-click="ChoosePlayer(PlayerToInvite)">Match me up!</button>
+        <div ng-if="0 === Matches.length">
+            You have no pending mathces
         </div>
+        <form name="AddScoreForm" ng-if="0 < Matches.length">
+            <div ng-repeat="Match in Matches">
+                <label> Who won?</label>
+                <input type="radio" name="Winner" ng-model="Match.Winner" ng-value="Match.OpponentId"> {{Match.OpponentName}}</input>
+                <input type="radio" name="Winner" ng-model="Match.Winner" ng-value="UserDetails._id">{{UserDetails.full_name}}</input>
+                <div style="margin-top: 20px; margin-bottom: 20px;">
+                    <button ng-show="Match.Winner === UserDetails._id" class="btn btn-success" ng-click="AddScore(Match._id, Match.Winner)">Yeap, I rock!</button>
+                    <button ng-show="Match.Winner === Match.OpponentId" class="btn btn-danger" ng-click="AddScore(Match._id, Match.Winner)">Yeap, I'm worthless :(</button>
+                </div>
+            </div>
+        </form>
     </form>
 </div>

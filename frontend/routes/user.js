@@ -9,7 +9,7 @@ const UserModel = require('./../models/user');
 
 const UserRoute = express.Router();
 
-//UserRoute.use(Auth.IsPasswordAuthenticatedUser);
+UserRoute.use(Auth.IsPasswordAuthenticatedUser);
 
 UserRoute.get(
     '/get-user-details',
@@ -22,7 +22,7 @@ function GetUserDetails (Request, Response) {
         Data: null
     };
 
-    return UserModel.GetTableUsers().then(
+    return UserModel.findOne({_id: Request.session.user._id}).then(
         (ResultTable) => {
             responseJson.Data = ResultTable;
             responseJson.Success = true;

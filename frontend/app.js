@@ -12,6 +12,7 @@ const LogoutRoute   = require('./routes/logout');
 const RegisterRoute = require('./routes/register');
 const TableRoute    = require('./routes/table');
 const MatchesRoute  = require('./routes/matches');
+const UserRoute     = require('./routes/user');
 
 const appServer = express();
 
@@ -77,6 +78,11 @@ appServer.use(
 appServer.use(
     '/matches',
     MatchesRoute
+);
+
+appServer.use(
+    '/user',
+    UserRoute
 );
 
 appServer.use(

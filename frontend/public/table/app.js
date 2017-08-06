@@ -28,7 +28,19 @@
                     function () {
                         //Popup mannger something went wrong
                     }
-                )
+                );
+
+                HttpRequest(
+                    {
+                        method: 'GET',
+                        url: '/user/get-user-details'
+                    },
+                    true
+                ).then(
+                    function (data) {
+                        $scope.UserDetails = data.Data;
+                    }
+                );
 
 
 
@@ -69,14 +81,15 @@
                         }, true
                     ).then(
                         function (data) {
-                            debugger;
                             $scope.Matches = [];
                             data.Data.forEach(function (Match) {
-                                var match = {winner: '', _id: Match._id};
-                                if ($scope.IdToName[Match.inviter]) {
-                                    match.opponent = $scope.IdToName[Match.inviter];
-                                } else if ($scope.IdToName[Match.invitee]) {
-                                    match.opponent = $scope.IdToName[Match.invitee];
+                                var match = {Winner: '', _id: Match._id};
+                                if ($scope.IdToName[Match.inviter] && Match.inviter !== $scope.UserDetails._id) {
+                                    match.OpponentName = $scope.IdToName[Match.inviter];
+                                    match.OpponentId = Match.inviter;
+                                } else if ($scope.IdToName[Match.invitee] && Match.invitee !== $scope.UserDetails._id) {
+                                    match.OpponentName = $scope.IdToName[Match.invitee];
+                                    match.OpponentId = Match.invitee;
                                 }
                                 $scope.Matches.push(match);
                             });
@@ -86,17 +99,26 @@
                                     className: 'ngdialog-theme-default',
                                     scope          : $scope,
                                     controller     : ['$scope', function ($scope) {
-                                        $scope.ChoosePlayer = function (PlayerToInvite) {
+                                        $scope.AddScore = function (MatchId, Winner) {
                                             HttpRequest(
                                                 {
                                                     method: 'POST',
-                                                    url: '/matches/add-friendly-match/' + PlayerToInvite
+                                                    url: '/matches/add-score/' + MatchId,
+                                                    data: {winner: Winner}
                                                 }
                                             ).then(
                                                 function () {
-                                                    ngDialog.close();
+                                                    debugger;
+                                                    var removeIndex = $scope.Matches.findIndex(function (Match) {
+                                                        return Match._id === MatchId;
+                                                    });
+                                                    $scope.Matches.splice(removeIndex, 1);
+
+                                                    if (0 === $scope.Matchs.length) {
+                                                        ngDialog.close();
+                                                    }
                                                 }
-                                            )
+                                            );
 
                                         }
                                     }]
