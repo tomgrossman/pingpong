@@ -99,14 +99,12 @@
                     ngDialog.open(
                         {
                             template: '/html/table/popups/tournament.html',
-                            className: 'tournament-popup',
-                            scope          : $scope
-
+                            className: 'ngdialog-theme-default tournament-popup',
+                            scope  : $scope
                         }
                     )
                 };
-
-            $scope.InvitePlayer = function () {
+                $scope.InvitePlayer = function () {
                     ngDialog.open(
                         {
                             template: '/html/table/popups/invite-player.html',
