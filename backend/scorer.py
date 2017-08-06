@@ -1,8 +1,7 @@
 import pprint
-
 import db
 
-class pointsr:
+class Scorer:
     def __init__(
         self,
     ):
@@ -52,6 +51,7 @@ class pointsr:
             pprint.pprint(match_loser)
 
 
-s = pointsr()
+
+s = Scorer()
 s.assign_points_for_matches()
 

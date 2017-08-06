@@ -1,6 +1,7 @@
 import pymongo
-import pprint
 import bson.objectid
+import time
+
 
 class PlayersDB:
     def __init__(self):
@@ -121,8 +122,19 @@ class PlayersDB:
         )
 
 
+    def monitor_for_matches_with_status(
+        self,
+        status,
+    ):
+        return self.mongo_session.matches.find(
+            filter={
+                'status': status,
+            },
+        )
+
 if __name__ == '__main__':
     db = PlayersDB()
+    db.monitor_for_new_matches()
     # pprint.pprint(db.get_all_players())
-    match = db.get_all_played_matches()[0]
+    # match = db.get_all_played_matches()[0]
     # db.finalize_match(match['_id'])
