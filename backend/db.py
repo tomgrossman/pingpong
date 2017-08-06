@@ -1,6 +1,6 @@
 import pymongo
 import bson.objectid
-import time
+import datetime
 
 
 class PlayersDB:
@@ -90,7 +90,7 @@ class PlayersDB:
     ):
         match = self.mongo_session.matches.find_one(
             filter={
-                '_id': match_id,
+                '_id': bson.objectid.ObjectId(match_id),
             },
         )
         return match
@@ -121,8 +121,22 @@ class PlayersDB:
             match,
         )
 
+    def accept_match(
+        self,
+        match_id,
+    ):
+        match = self.get_match_by_id(
+            match_id=match_id,
+        )
+        match['status'] = 'accepted'
+        self.mongo_session.matches.update(
+            {
+                '_id': bson.objectid.ObjectId(match_id),
+            },
+            match,
+        )
 
-    def monitor_for_matches_with_status(
+    def get_matches_with_status(
         self,
         status,
     ):
@@ -132,9 +146,48 @@ class PlayersDB:
             },
         )
 
+    def create_tournament(
+        self,
+        tournament_type,
+    ):
+        tournament = {
+            'type': tournament_type,
+            'initial_attendees': [],
+            'stages': [],
+            'creation_date': datetime.datetime.now()
+        }
+        return self.mongo_session.tournaments.insert(
+            tournament,
+        )
+
+    def add_player_to_tournament(
+        self,
+        tournament_id,
+        player_id,
+    ):
+
+        tournament = self.mongo_session.tournaments.find_one(
+            filter={
+                '_id': bson.objectid.ObjectId(tournament_id),
+            },
+        )
+        try:
+            tournament['initial_attendees'].append(bson.objectid.ObjectId(player_id))
+        except TypeError:
+            tournament['initial_attendees'] = [bson.objectid.ObjectId(player_id)]
+
+        initial_len = len(tournament['initial_attendees'])
+        tournament['initial_attendees'] = list(set(tournament['initial_attendees']))
+        len_after_add = len(tournament['initial_attendees'])
+
+        self.mongo_session.tournaments.update(
+            {
+                '_id': bson.objectid.ObjectId(tournament_id),
+            },
+            tournament,
+        )
+        player_added = initial_len != len_after_add
+
+        return player_added
 if __name__ == '__main__':
     db = PlayersDB()
-    db.monitor_for_new_matches()
-    # pprint.pprint(db.get_all_players())
-    # match = db.get_all_played_matches()[0]
-    # db.finalize_match(match['_id'])

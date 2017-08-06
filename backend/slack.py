@@ -24,13 +24,13 @@ class Notifier:
             username=self.notifier_user_ref,
         )
 
-    def notify_user_by_email(
+    def notify_slack_user_by_user_email(
         self,
-        email,
+        user_email,
         message,
     ):
         user = self.get_user_ref_by_email(
-            email=email,
+            email=user_email,
         )
         self.notify_user(
             user=user,
@@ -42,8 +42,12 @@ class Notifier:
         email,
     ):
         for user in self.slack_client.users.list().body['members']:
-            if user['profile']['email'] == email:
-                return user['name']
+            try:
+                if user['profile']['email'] == email:
+                    return user['name']
+            except KeyError:
+                #TODO: send email to notify user to add email to slack
+                pass
         else:
             raise ValueError(
                 'Could not find user by email \'{email}\'.'.format(
