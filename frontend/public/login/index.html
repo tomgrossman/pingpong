@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="LoginApp">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <script src="/node_modules/angular/angular.min.js"></script>
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/login/index.css">
+</head>
+<body>
+    <div ng-controller="LoginController">
+        <div class="login_register_container">
+            <div class="form_row">
+                <form name="LoginForm">
+                    <div>
+                        <label for="LoginEmail">Email</label>
+                        <input id="LoginEmail" ng-model="email" name="email" type="email" class="form-control" required>
+                    </div>
+                    <div>
+                        <label for="LoginPassword">Password</label>
+                        <input id="LoginPassword" ng-model="password" name="LoginPassword" type="password" class="form-control" minlength="8" required>
+                    </div>
+                    <div>
+                        <button class="btn btn-success" style="margin-top:20px;" ng-click="Login()"> Log me in!</button>
+                        <label style="color: red" ng-if="ErrorMessage" class="error_label">{{ErrorMessage}}</label>
+
+                        <button type="button" class="btn btn-info" style="float: right; margin-top:20px;" ng-click="GoToRegister()">Register</button>
+                    </div>
+                </form>
+            </div>
+            <div style="margin-top: 20px;"></div>
+        </div>
+    </div>
+    <script type="text/javascript" src="/login/app.js"></script>
+    <script type="text/javascript" src="/static/js/static-services.js"></script>
+</body>
+
+</html>

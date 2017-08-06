@@ -2,6 +2,8 @@
 
 const express       = require('express');
 const bodyParser    = require('body-parser');
+const path          = require('path');
+const serveStatic   = require('serve-static');
 const session       = require('express-session');
 
 const AuthUtils     = require('./middlewares/auth-utils');
@@ -34,6 +36,18 @@ appServer.use(
     )
 );
 
+appServer.use('/node_modules',
+    serveStatic(path.join(__dirname, 'node_modules'))
+);
+
+appServer.use('/css',
+    serveStatic(path.join(__dirname, 'public/'))
+);
+
+appServer.use('/static',
+    serveStatic(path.join(__dirname, 'public/static'))
+);
+
 appServer.use(session(AuthUtils.GetSessionOptions(false)));
 
 appServer.use(
@@ -59,6 +73,11 @@ appServer.use(
 appServer.use(
     '/matches',
     MatchesRoute
+);
+
+appServer.use(
+    '/',
+    TableRoute
 );
 
 appServer.listen(
