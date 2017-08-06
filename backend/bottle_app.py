@@ -1,5 +1,6 @@
 import bottle
 import match_manager
+import time
 import tournament_manager
 import threading
 import schedule
@@ -49,16 +50,23 @@ def init():
         kwargs={
             'host': '0.0.0.0',
             'port': 8080,
-            'debug': True,
-            }
-        )
-    bottle_thread.start()
-    schedule.every(1).minutes.do(match_manager.get_new_matches_and_send_invite)
-    schedule.every(30).minutes.do(match_manager.get_approval_for_match_result)
-    schedule.every(1).day.do(tournament_manager.finalize_tournament_registrations)
-    schedule.every(4).weeks.do(tournament_manager.create_tournament, tournament_type='monthly')
-    # schedule.every(13).weeks.do(tournament_manager.create_tournament, tournament_type='quarterly')
+            'server' : 'tornado'
+        }
 
+    )
+    bottle_thread.start()
+    schedule.every(1).seconds.do(match_manager.get_new_matches_and_send_invite)
+    schedule.every(1).seconds.do(match_manager.get_approval_for_match_result)
+    # schedule.every(1).day.do(tournament_manager.finalize_tournament_registrations)
+    # schedule.every(4).weeks.do(tournament_manager.create_tournament, tournament_type='monthly')
+    # schedule.every(1).minutes.do(tournament_manager.create_next_stage_and_send_invites)
+    #
     while True:
         schedule.run_pending()
+    # match_manager.get_new_matches_and_send_invite()
+    # match_manager.get_approval_for_match_result()
+    # tournament_manager.create_tournament(tournament_type='monthly')
+    # time.sleep(30)
+    # tournament_manager.finalize_tournament_registrations()
+    # tournament_manager.create_next_stage_and_send_invites()
 init()
