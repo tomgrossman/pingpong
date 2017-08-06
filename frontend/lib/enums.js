@@ -3,6 +3,7 @@
 exports.Teams = {
     frontend: 'frontend',
     backend: 'backend',
+    qa: 'qa',
     analysts: 'analysts',
     product: 'product'
 };
