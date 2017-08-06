@@ -33,3 +33,45 @@ td, th {
 .team_option {
     color: black;
 }
+
+/*
+ *  Flex Layout Specifics
+*/
+
+.round .spacer{ flex-grow:1; }
+.round .spacer:first-child,
+.round .spacer:last-child{ flex-grow:.5; }
+
+.round .game-spacer{
+  flex-grow:1;
+}
+
+/*
+ *  General Styles
+*/
+
+.tournament-popup .ngdialog-content {
+  width: 700px !important;
+  height: 700px !important;
+  margin-top: 100px;
+  margin-left: 250px;
+}
+
+.game{
+  padding-left:20px;
+}
+
+.game.winner{
+  font-weight:bold;
+}
+
+.game-top{ border-bottom:1px solid #aaa; }
+
+.game-spacer{
+  border-right:1px solid #aaa;
+  min-height:40px;
+}
+
+.game-bottom{
+  border-top:1px solid #aaa;
+}

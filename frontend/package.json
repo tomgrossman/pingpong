@@ -28,6 +28,7 @@
     "express": "~4.15",
     "express-session": "~1.15",
     "jquery": "^3.2.1",
+    "jquery-bracket": "^0.11.0",
     "mongodb": "~2.2",
     "mongoose": "~4.11",
     "ng-dialog": "^1.4.0",

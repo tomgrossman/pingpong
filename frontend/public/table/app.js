@@ -27,67 +27,86 @@
             ];
             $scope.TeamFilter = 'all';
 
-            function getTable() {
-                return HttpRequest({
-                    method: 'GET',
-                    url: '/table/get-table'
-                }, true).then(
-                    function (data) {
-                        $scope.FullTable = data.Data;
-                        $scope.FullTable.forEach(function (TableRow) {
-                            $scope.IdToName[TableRow._id] = TableRow.full_name;
-                        });
-                        FilterTableByTeam();
-                    }
-                )
-            }
-
-            $scope.$watch('TeamFilter', function () {
-                FilterTableByTeam();
-            });
-
-            function FilterTableByTeam () {
-                $scope.Table = $scope.FullTable.filter(function (currRow) {
-                    return ('all' === $scope.TeamFilter || $scope.TeamFilter === currRow.team);
-                });
-            }
-
-            HttpRequest(
-                {
-                    method: 'GET',
-                    url: '/user/get-user-details'
-                },
-                true
-            ).then(
-                function (data) {
-                    $scope.UserDetails = data.Data;
+                function getTable() {
+                    return HttpRequest({
+                        method: 'GET',
+                        url: '/table/get-table'
+                    }, true).then(
+                        function (data) {
+                            $scope.Table = data.Data;
+                            $scope.Table.forEach(function (TableRow) {
+                                $scope.IdToName[TableRow._id] = TableRow.full_name;
+                            })
+                        }
+                    )
                 }
-            );
 
-            getTable();
-            setInterval(function () {
+                function getTournament() {
+                    HttpRequest(
+                        {
+                            method: 'GET',
+                            url: '/tournament'
+                        },
+                        true
+                    ).then(
+                        function (data) {
+                            $scope.Tournament = data.Data;
+                        }
+                    );
+                }
+
+                function getUserDetails () {
+                    HttpRequest(
+                        {
+                            method: 'GET',
+                            url: '/user/get-user-details'
+                        },
+                        true
+                    ).then(
+                        function (data) {
+                            $scope.UserDetails = data.Data;
+                        }
+                    );
+                }
+
+                getUserDetails();
+                getTournament();
                 getTable();
-            }, 5000);
 
-            $scope.InvitePlayer = function () {
-                ngDialog.open(
-                    {
-                        template: '/html/table/popups/play-game.html',
-                        className: 'ngdialog-theme-default',
-                        scope          : $scope,
-                        controller     : ['$scope', function ($scope) {
-                            $scope.ChoosePlayer = function (PlayerToInvite) {
-                                HttpRequest(
-                                    {
-                                        method: 'POST',
-                                        url: '/matches/add-friendly-match/' + PlayerToInvite
-                                    }
-                                ).then(
-                                    function () {
-                                        ngDialog.close();
-                                    }
-                                )
 
+                setInterval(function () {
+                    getTable();
+                    getTournament();
+                }, 5000);
+
+
+    $scope.ShowTournament = function (Tournament) {
+                    ngDialog.open(
+                        {
+                            template: '/html/table/popups/tournament.html',
+                            className: 'tournament-popup',
+                            scope          : $scope
+
+                        }
+                    )
+                };            $scope.InvitePlayer = function () {
+                    ngDialog.open(
+                        {
+                            template: '/html/table/popups/play-game.html',
+                            className: 'ngdialog-theme-default',
+                            scope          : $scope,
+                            controller     : ['$scope', function ($scope) {
+                                $scope.ChoosePlayer = function (PlayerToInvite) {
+                                    HttpRequest(
+                                        {
+                                            method: 'POST',
+                                            url: '/matches/add-friendly-match/' + PlayerToInvite
+                                        }
+                                    ).then(
+                                        function () {
+                                            ngDialog.close();
+                                        }
+                                    )
                             }
                         }]
                     }
@@ -128,7 +147,6 @@
                                                 ngDialog.close();
                                             }
                                         );
-
                                     }
                                 }]
                             }

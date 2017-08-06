@@ -20,3 +20,29 @@ exports.JsonToArray = function (JsonObject) {
         return JsonObject[k];
     });
 };
+
+exports.IsEqualObjectId = function (OrigObjectId, DestObjectId) {
+    if (!OrigObjectId || !DestObjectId) {
+        return false;
+    }
+
+    let origObjectId = OrigObjectId;
+    if ('string' === typeof origObjectId) {
+        if (!ObjectId.isValid(origObjectId)) {
+            return false;
+        }
+
+        origObjectId = new ObjectId(origObjectId);
+    }
+
+    let destObjectId = DestObjectId;
+    if ('string' === typeof destObjectId) {
+        if (!ObjectId.isValid(destObjectId)) {
+            return false;
+        }
+
+        destObjectId = new ObjectId(destObjectId);
+    }
+
+    return (origObjectId.equals(destObjectId));
+};

@@ -1,0 +1,8 @@
+<div ng-repeat="stage in Tournament.stages" style="width: 20%; float: left; margin-right: 20px;">
+    <div ng-repeat="match in stage track by $index"  class="round round-{{$index+1}}">
+        <div class="spacer">&nbsp;</div>
+        <div class="game game-top" ng-class="{winner: match.score.winner === match.invitee}">{{IdToName[match.invitee] || 'no player'}}</div>
+        <div class="game game-spacer">&nbsp;</div>
+        <div class="game game-bottom" ng-class="{winner: match.score.winner === match.inviter}">{{IdToName[match.inviter] || 'no player'}}</div>
+    </div>
+</div>
