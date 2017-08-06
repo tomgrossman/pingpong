@@ -40,6 +40,11 @@ appServer.use(
 );
 
 appServer.use(
+    '/logout',
+    LoginRoute
+);
+
+appServer.use(
     '/register',
     RegisterRoute
 );

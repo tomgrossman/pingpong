@@ -3,10 +3,13 @@
 const express       = require('express');
 
 const Lib           = require('./../lib');
+const Auth          = require('./../middlewares/authentication');
 const ModelUtils    = require('./../models/model-utils');
 const UserModel     = require('./../models/user');
 
 const RegisterRoute = express.Router();
+
+RegisterRoute.use(Auth.IsUnAuthenticatedUser);
 
 RegisterRoute.post(
     '/',
