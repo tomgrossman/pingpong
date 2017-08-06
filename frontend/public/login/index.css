@@ -3,11 +3,21 @@ body {
 }
 
 .login_register_container {
-    width: 30%;
+    width: 20%;
     position: fixed;
     left: 35%;
     top: 25%;
     padding: 50px;
     text-align: left;
     color: white;
+}
+
+.input_div {
+    margin-top: 10px;
+}
+
+.LoginLabel {
+    width: 100%;
+    text-align: center;
+    font-size: 32px;
 }

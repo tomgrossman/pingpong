@@ -16,13 +16,14 @@
         <div class="login_register_container">
             <div class="form_row">
                 <form name="LoginForm">
-                    <div>
-                        <label for="LoginEmail">Email</label>
-                        <input id="LoginEmail" ng-model="email" name="email" type="email" class="form-control" required>
+                    <div class="LoginLabel">
+                        Login
                     </div>
-                    <div>
-                        <label for="LoginPassword">Password</label>
-                        <input id="LoginPassword" ng-model="password" name="LoginPassword" type="password" class="form-control" minlength="8" required>
+                    <div class="input_div">
+                        <input class="form-control" id="LoginEmail" ng-model="email" name="email" type="email" placeholder="email address" required>
+                    </div>
+                    <div class="input_div">
+                        <input class="form-control" id="LoginPassword" ng-model="password" name="LoginPassword" type="password" placeholder="password" minlength="8" required>
                     </div>
                     <div>
                         <button class="btn btn-success" style="margin-top:20px;" ng-click="Login()"> Log me in!</button>
