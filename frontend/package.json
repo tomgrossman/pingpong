@@ -1,0 +1,25 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomgrossman/pingpong.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tomgrossman/pingpong/issues"
+  },
+  "homepage": "https://github.com/tomgrossman/pingpong#readme",
+  "dependencies": {
+    "express": "~4.15",
+    "express-session": "~1.15",
+    "mongoose": "4.11.1",
+    "mongodb": "~2.2"
+  }
+}
