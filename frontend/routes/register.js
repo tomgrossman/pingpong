@@ -28,7 +28,7 @@ function RegisterUser (Request, Response) {
 
     let newUserModel = {};
 
-    return Lib.utils.EncryptPassword(userBody.Password).then(
+    return Lib.utils.EncryptPassword(userBody.password).then(
         (HashedPassword) => {
             userBody.password = HashedPassword;
             delete userBody.reTypePassword;

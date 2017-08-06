@@ -8,3 +8,7 @@ exports.EncryptPassword = function (OrigPass) {
         }
     );
 };
+
+exports.ComparePassword = function (OrigPassword, Password) {
+    return Bcrypt.compareAsync(Password, OrigPassword);
+};

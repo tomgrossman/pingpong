@@ -2,7 +2,9 @@
 
 const express       = require('express');
 const bodyParser    = require('body-parser');
+const session       = require('express-session');
 
+const AuthUtils     = require('./middlewares/auth-utils');
 const LoginRoute    = require('./routes/login');
 const RegisterRoute = require('./routes/register');
 const TableRoute    = require('./routes/table');
@@ -29,6 +31,8 @@ appServer.use(
         }
     )
 );
+
+appServer.use(session(AuthUtils.GetSessionOptions(false)));
 
 appServer.use(
     '/login',
