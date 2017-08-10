@@ -84,7 +84,7 @@ class PlayersDB:
             # if user['email'] == 'benda@intsights.com' and now.day % 2 == 0:
             #     user['points'] -= 1
             # else:
-            user['points'] += points
+            user['points'] = points
             self.mongo_session.users.update(
                 {
                     '_id': bson.objectid.ObjectId(user_id),
