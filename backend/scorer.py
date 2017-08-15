@@ -46,8 +46,8 @@ class Scorer:
                     match_loser_id = match['inviter']
                 winner_points, loser_points = self.get_winner_and_loser_points(
                     match_type=match['type'],
-                    winner_player_rank=self.db.get_player_by_id(user_id=match_winner_id)['points'],
-                    loser_player_rank=self.db.get_player_by_id(user_id=match_loser_id)['points'],
+                    winner_player_rank=int(self.db.get_player_by_id(user_id=match_winner_id)['points']),
+                    loser_player_rank=int(self.db.get_player_by_id(user_id=match_loser_id)['points']),
                 )
                 self.db.update_points_for_match(
                     {
