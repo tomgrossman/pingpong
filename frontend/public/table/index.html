@@ -35,7 +35,7 @@
                 <ul class="nav navbar-nav">
                     <li ng-click="InvitePlayer()"><a href="#">Invite a Player</a></li>
                     <li ng-click="AddScore()"><a href="#">Add Score</a></li>
-                    <li ng-click="ShowTournament(Tournament)"><a href="#" ng-show="Tournament">Tournament Status</a></li>
+                    <li ng-click="ShowTournament(Tournament)" ng-show="Tournament"><a href="#">Tournament Status</a></li>
                 </ul>
 
                 <ul class="nav navbar-nav" style="float: right">
@@ -68,6 +68,25 @@
                 <td>{{TableRow.team}}</td>
             </tr>
         </table>
+        <div class="tournament_container centralize_page_horizontally">
+            <div ng-repeat="stage in Tournament.stages track by $index" class="round round-{{$index+1}}">
+                <label style="color: green; padding-left: 20px;">Round {{$index + 1}}</label>
+                <div ng-repeat="match in stage" class="match match-{{$parent.$index+1}}">
+                    <div class="game game-top" ng-class="{winner: match.score.winner === match.invitee}">{{IdToName[match.invitee] || 'no player'}}</div>
+                    <div class="game game-spacer game-spacer-{{$parent.$index+1}}">&nbsp;</div>
+                    <div class="game game-bottom" ng-class="{winner: match.score.winner === match.inviter}">{{IdToName[match.inviter] || 'no player'}}</div>
+                </div>
+            </div>
+            <div class="round round-winner" ng-show="true === TournamentFinished">
+                <div class="game game-top tournament_winner_announcement">
+                    And the winner is:
+                </div>
+                <div class="game tournament_winner">
+                    {{TournamentWinner}}
+                    &#128079 &#128079 &#128079 &#128079 &#128079
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 
