@@ -18,13 +18,19 @@
     <script type="text/javascript" src="./app.js"></script>
     <script type="text/javascript" src="/static/js/static-services.js"></script>
     <link rel="stylesheet" href="/css/table/index.css">
+    <title>IPPP</title>
 </head>
 <body ng-app="MainApp">
     <div ng-controller="MainController">
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">Ping Pong Is The Shit</a>
+                    <span class="navbar-brand">
+                        <span class="capital_red">I</span><span class="non_capital">ntSights</span>
+                        <span class="capital_red">P</span><span class="non_capital">ing</span>
+                        <span class="capital_red">P</span><span class="non_capital">ong</span>
+                        <span class="capital_red">P</span><span class="non_capital">latform</span>
+                    </span>
                 </div>
                 <ul class="nav navbar-nav">
                     <li ng-click="InvitePlayer()"><a href="#">Invite a Player</a></li>
@@ -37,7 +43,13 @@
                 </ul>
             </div>
         </nav>
-        <table>
+        <div class="greeting_container">
+            <span class="greeting" ng-class="{show_greeting: true === ShowGreeting, hide_greeting: false === ShowGreeting}">
+                {{Greeting.Preffix}} {{UserDetails.full_name.split(' ')[0]}} &#9786 {{Greeting.Suffix}}
+            </span>
+            <span ng-show="ShowCloseButton" class="close_button" ng-class="{show_greeting: true === ShowCloseButton}">x</span>
+        </div>
+        <table class="centralize_page_horizontally">
             <tr>
                 <th>Rank</th>
                 <th>Name</th>

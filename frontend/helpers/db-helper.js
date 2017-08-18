@@ -1,7 +1,7 @@
 const Promise       = require('bluebird');
 const mongoose      = require('mongoose');
 
-const DB_URL = 'mongodb://intsights-pingpong-database/ping_pong';
+const DB_URL = 'mongodb://localhost:27017/ping_pong';//TODO change back to what it was!!!
 
 mongoose.Promise = Promise;
 const connectionOptions = {

@@ -1,12 +1,49 @@
 body {
   background-color: #235279;
 }
+.navbar-header {
+  .capital_red {
+    color: red;
+  }
+  .non_capital {
+    color: black;
+  }
+}
+.greeting_container {
+  margin-top: 30px;
+  margin-bottom: 70px;
+  text-align: center;
+  .greeting {
+    color: #00BFFF;
+    font-size: 19px;
+    opacity: 0;
+    &.show_greeting {
+      -webkit-transition: opacity 1s ease-in;
+      -moz-transition: opacity 1s ease-in;
+      -o-transition: opacity 1s ease-in;
+      transition: opacity 1s ease-in;
+      opacity: 1;
+    }
+    &.hide_greeting {
+      -webkit-transition: opacity 1s ease-out;
+      -moz-transition: opacity 1s ease-out;
+      -o-transition: opacity 1s ease-out;
+      transition: opacity 1s ease-out;
+      opacity: 0;
+    }
+  }
+  .close_button {
+    margin-left: 5px;
+    color: orange;
+  }
+}
 
+.centralize_page_horizontally {
+    margin-left: 20%;
+}
 table {
-  width: 60%;
   border-collapse: collapse;
-    margin-top: 100px;
-    margin-left: 295px;
+  width: 60%;
 }
 /* Zebra striping */
 tr:nth-of-type(odd) {

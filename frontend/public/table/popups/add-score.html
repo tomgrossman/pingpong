@@ -23,8 +23,8 @@
                     </div>
                     <div class="clear"></div>
                     <div ng-if="SelectedMatch.Winner" style="margin-top: 20px; margin-bottom: 20px;">
-                        <button ng-show="SelectedMatch.Winner === UserDetails._id" class="btn btn-success" ng-click="AddScore(SelectedMatch._id, SelectedMatch.Winner)">Yeap, I rock!</button>
-                        <button ng-show="SelectedMatch.Winner === SelectedMatch.oponnentId" class="btn btn-danger" ng-click="AddScore(SelectedMatch._id, SelectedMatch.Winner)">Yeap, I'm worthless :(</button>
+                        <button ng-show="SelectedMatch.Winner === UserDetails._id" class="btn btn-success" ng-click="AddScore(SelectedMatch._id, SelectedMatch.Winner, true)">Yeap, I rock!</button>
+                        <button ng-show="SelectedMatch.Winner === SelectedMatch.oponnentId" class="btn btn-danger" ng-click="AddScore(SelectedMatch._id, SelectedMatch.Winner, false)">Yeap, I'm worthless :(</button>
                     </div>
                 </div>
             </div>

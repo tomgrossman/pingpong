@@ -1,9 +1,9 @@
 body {
-  background-color: #235279;
+    background-image: url(/img/ping-pong-background.jpg);
 }
 
 .login_register_container {
-    width: 20%;
+    width: 280px;
     position: fixed;
     left: 35%;
     top: 25%;
@@ -14,6 +14,9 @@ body {
 
 .input_div {
     margin-top: 10px;
+}
+.input_div input {
+    background-color: beige;
 }
 
 .LoginLabel {

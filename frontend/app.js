@@ -44,8 +44,12 @@ appServer.use('/node_modules',
     serveStatic(path.join(__dirname, 'node_modules'))
 );
 
+appServer.use('/img',
+    serveStatic(path.join(__dirname, 'public/img/'))
+);
+
 appServer.use('/css',
-    serveStatic(path.join(__dirname, 'public/'))
+    serveStatic(path.join(__dirname, 'public/dist/css/'))
 );
 
 appServer.use('/html',
