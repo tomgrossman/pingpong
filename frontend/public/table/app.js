@@ -141,112 +141,112 @@
                         //                         winner: '5996db143bb73f035087af50',
                         //                     },
                         //                     invitee: '5996db143bb73f035087af50',
-                        //                     inviter: '5996fc3ddad666079747faba'
-                        //                 },
-                        //                 {
-                        //                     score: {
-                        //                         winner: '5996db143bb73f035087af50',
-                        //                     },
-                        //                     invitee: '5996db143bb73f035087af50',
-                        //                     inviter: '5996fc3ddad666079747faba'
-                        //                 },
-                        //                 {
-                        //                     score: {
-                        //                         winner: '5996db143bb73f035087af50',
-                        //                     },
-                        //                     invitee: '5996db143bb73f035087af50',
-                        //                     inviter: '5996fc3ddad666079747faba'
-                        //                 },
-                        //                 {
-                        //                     score: {
-                        //                         winner: '5996db143bb73f035087af50',
-                        //                     },
-                        //                     invitee: '5996db143bb73f035087af50',
-                        //                     inviter: '5996fc3ddad666079747faba'
-                        //                 },
-                        //                 {
-                        //                     score: {
-                        //                         winner: '5996db143bb73f035087af50',
-                        //                     },
-                        //                     invitee: '5996db143bb73f035087af50',
-                        //                     inviter: '5996fc3ddad666079747faba'
-                        //                 },
-                        //                 {
-                        //                     score: {
-                        //                         winner: '5996db143bb73f035087af50',
-                        //                     },
-                        //                     invitee: '5996db143bb73f035087af50',
-                        //                     inviter: '5996fc3ddad666079747faba'
-                        //                 },
-                        //                 {
-                        //                     score: {
-                        //                         winner: '5996db143bb73f035087af50',
-                        //                     },
-                        //                     invitee: '5996db143bb73f035087af50',
-                        //                     inviter: '5996fc3ddad666079747faba'
-                        //                 },
-                        //                 {
-                        //                     score: {
-                        //                         winner: '5996db143bb73f035087af50',
-                        //                     },
-                        //                     invitee: '5996db143bb73f035087af50',
-                        //                     inviter: '5996fc3ddad666079747faba'
-                        //                 },
-                        //                 {
-                        //                     score: {
-                        //                         winner: '5996db143bb73f035087af50',
-                        //                     },
-                        //                     invitee: '5996db143bb73f035087af50',
-                        //                     inviter: '5996fc3ddad666079747faba'
-                        //                 },
-                        //                 {
-                        //                     score: {
-                        //                         winner: '5996db143bb73f035087af50',
-                        //                     },
-                        //                     invitee: '5996db143bb73f035087af50',
                         //                     inviter: null
                         //                 },
                         //                 {
                         //                     score: {
-                        //                         winner: '5996db143bb73f035087af50',
+                        //                         winner: '5996fc3ddad666079747faba',
                         //                     },
-                        //                     invitee: '5996db143bb73f035087af50',
+                        //                     invitee: '5996fc3ddad666079747faba',
                         //                     inviter: null
                         //                 },
                         //                 {
                         //                     score: {
-                        //                         winner: '5996db143bb73f035087af50',
+                        //                         winner: '5997305e1897173a5d971f49',
+                        //                     },
+                        //                     invitee: '5997305e1897173a5d971f49',
+                        //                     inviter: null
+                        //                 },
+                        //                 {
+                        //                     score: {
+                        //                         winner: '599730761897173a5d971f4a',
+                        //                     },
+                        //                     invitee: '599730761897173a5d971f4a',
+                        //                     inviter: null
+                        //                 },
+                        //                 {
+                        //                     score: {
+                        //                         winner: '599730b51897173a5d971f4b',
+                        //                     },
+                        //                     invitee: '599730b51897173a5d971f4b',
+                        //                     inviter: null
+                        //                 },
+                        //                 {
+                        //                     score: {
+                        //                         winner: '599730c51897173a5d971f4c',
+                        //                     },
+                        //                     invitee: '599730c51897173a5d971f4c',
+                        //                     inviter: null
+                        //                 },
+                        //                 {
+                        //                     score: {
+                        //                         winner: '599731131897173a5d971f4e',
+                        //                     },
+                        //                     invitee: '599731131897173a5d971f4e',
+                        //                     inviter: null
+                        //                 },
+                        //                 {
+                        //                     score: {
+                        //                         winner: '5997312b1897173a5d971f4f',
+                        //                     },
+                        //                     invitee: '5997312b1897173a5d971f4f',
+                        //                     inviter: null
+                        //                 },
+                        //                 {
+                        //                     score: {
+                        //                         winner: '5997324834e82d0f5c235c63',
+                        //                     },
+                        //                     invitee: '5997324834e82d0f5c235c63',
+                        //                     inviter: null
+                        //                 },
+                        //                 {
+                        //                     score: {
+                        //                         winner: '5997326d34e82d0f5c235c64',
+                        //                     },
+                        //                     invitee: '5997326d34e82d0f5c235c64',
+                        //                     inviter: null
+                        //                 },
+                        //                 {
+                        //                     score: {
+                        //                         winner: '5997328634e82d0f5c235c65',
+                        //                     },
+                        //                     invitee: '5997328634e82d0f5c235c65',
+                        //                     inviter: null
+                        //                 },
+                        //                 {
+                        //                     score: {
+                        //                         winner: '599732a334e82d0f5c235c66',
                         //                     },
                         //                     invitee: null,
-                        //                     inviter: '5996fc3ddad666079747faba'
+                        //                     inviter: '599732a334e82d0f5c235c66'
                         //                 },
                         //                 {
                         //                     score: {
-                        //                         winner: '5996db143bb73f035087af50',
+                        //                         winner: '599732bd34e82d0f5c235c67',
                         //                     },
                         //                     invitee: null,
-                        //                     inviter: '5996fc3ddad666079747faba'
+                        //                     inviter: '599732bd34e82d0f5c235c67'
                         //                 },
                         //                 {
                         //                     score: {
-                        //                         winner: '5996db143bb73f035087af50',
+                        //                         winner: '599732dc34e82d0f5c235c68',
                         //                     },
                         //                     invitee: null,
-                        //                     inviter: '5996fc3ddad666079747faba'
+                        //                     inviter: '599732dc34e82d0f5c235c68'
                         //                 },
                         //                 {
                         //                     score: {
-                        //                         winner: '5996db143bb73f035087af50',
+                        //                         winner: '5997330034e82d0f5c235c69',
                         //                     },
-                        //                     invitee: '5996db143bb73f035087af50',
+                        //                     invitee: '5997330034e82d0f5c235c69',
                         //                     inviter: null
                         //                 },
                         //                 {
                         //                     score: {
-                        //                         winner: '5996db143bb73f035087af50',
+                        //                         winner: '5997331b34e82d0f5c235c6a',
                         //                     },
-                        //                     invitee: '5996db143bb73f035087af50',
-                        //                     inviter: null
+                        //                     invitee: '5997331b34e82d0f5c235c6a',
+                        //                     inviter: '5997333b34e82d0f5c235c6b'
                         //                 }
                         //             ],
                         //             [
@@ -259,107 +259,107 @@
                         //                 },
                         //                 {
                         //                     score: {
-                        //                         winner: '5996db143bb73f035087af50',
+                        //                         winner: '5997305e1897173a5d971f49',
                         //                     },
-                        //                     invitee: '5996db143bb73f035087af50',
-                        //                         inviter: '5996fc3ddad666079747faba'
+                        //                     invitee: '599730761897173a5d971f4a',
+                        //                         inviter: '5997305e1897173a5d971f49'
                         //                 },
                         //                 {
                         //                     score: {
-                        //                         winner: '5996db143bb73f035087af50',
+                        //                         winner: '599730b51897173a5d971f4b',
                         //                     },
-                        //                     invitee: '5996db143bb73f035087af50',
-                        //                         inviter: '5996fc3ddad666079747faba'
+                        //                     invitee: '599730b51897173a5d971f4b',
+                        //                         inviter: '599730c51897173a5d971f4c'
                         //                 },
                         //                 {
                         //                     score: {
-                        //                         winner: '5996db143bb73f035087af50',
+                        //                         winner: '599731131897173a5d971f4e',
                         //                     },
-                        //                     invitee: '5996db143bb73f035087af50',
-                        //                         inviter: '5996fc3ddad666079747faba'
+                        //                     invitee: '599731131897173a5d971f4e',
+                        //                         inviter: '5997312b1897173a5d971f4f'
                         //                 },
                         //                 {
                         //                     score: {
-                        //                         winner: '5996db143bb73f035087af50',
+                        //                         winner: '5997324834e82d0f5c235c63',
                         //                     },
-                        //                     invitee: '5996db143bb73f035087af50',
-                        //                         inviter: '5996fc3ddad666079747faba'
+                        //                     invitee: '5997324834e82d0f5c235c63',
+                        //                         inviter: '5997326d34e82d0f5c235c64'
                         //                 },
                         //                 {
                         //                     score: {
-                        //                         winner: '5996db143bb73f035087af50',
+                        //                         winner: '5997328634e82d0f5c235c65',
                         //                     },
-                        //                     invitee: '5996db143bb73f035087af50',
-                        //                         inviter: '5996fc3ddad666079747faba'
+                        //                     invitee: '5997328634e82d0f5c235c65',
+                        //                         inviter: '599732a334e82d0f5c235c66'
                         //                 },
                         //                 {
                         //                     score: {
-                        //                         winner: '5996db143bb73f035087af50',
+                        //                         winner: '599732bd34e82d0f5c235c67',
                         //                     },
-                        //                     invitee: '5996db143bb73f035087af50',
-                        //                         inviter: '5996fc3ddad666079747faba'
+                        //                     invitee: '599732bd34e82d0f5c235c67',
+                        //                         inviter: '599732dc34e82d0f5c235c68'
                         //                 },
                         //                 {
                         //                     score: {
-                        //                         winner: '5996db143bb73f035087af50',
+                        //                         winner: '5997330034e82d0f5c235c69',
                         //                     },
-                        //                     invitee: '5996db143bb73f035087af50',
-                        //                         inviter: '5996fc3ddad666079747faba'
+                        //                     invitee: '5997330034e82d0f5c235c69',
+                        //                         inviter: '5997331b34e82d0f5c235c6a'
                         //                 }
                         //             ],
                         //             [
                         //                 {
                         //                     score: {
-                        //                         winner: '5996db143bb73f035087af50',
+                        //                         winner: '5997305e1897173a5d971f49',
                         //                     },
                         //                     invitee: '5996db143bb73f035087af50',
-                        //                     inviter: '5996fc3ddad666079747faba'
+                        //                     inviter: '5997305e1897173a5d971f49'
                         //                 },
                         //                 {
                         //                     score: {
-                        //                         winner: '5996db143bb73f035087af50',
+                        //                         winner: '599730b51897173a5d971f4b',
                         //                     },
-                        //                     invitee: '5996db143bb73f035087af50',
-                        //                     inviter: '5996fc3ddad666079747faba'
+                        //                     invitee: '599730b51897173a5d971f4b',
+                        //                     inviter: '599731131897173a5d971f4e'
                         //                 },
                         //                 {
                         //                     score: {
-                        //                         winner: '5996db143bb73f035087af50',
+                        //                         winner: '5997328634e82d0f5c235c65',
                         //                     },
-                        //                     invitee: '5996db143bb73f035087af50',
-                        //                     inviter: '5996fc3ddad666079747faba'
+                        //                     invitee: '5997324834e82d0f5c235c63',
+                        //                     inviter: '5997328634e82d0f5c235c65'
                         //                 },
                         //                 {
                         //                     score: {
-                        //                         winner: '5996db143bb73f035087af50',
+                        //                         winner: '599732bd34e82d0f5c235c67',
                         //                     },
-                        //                     invitee: '5996db143bb73f035087af50',
-                        //                     inviter: '5996fc3ddad666079747faba'
+                        //                     invitee: '599732bd34e82d0f5c235c67',
+                        //                     inviter: '599732dc34e82d0f5c235c68'
                         //                 }
                         //             ],
                         //             [
                         //                 {
                         //                     score: {
-                        //                         winner: '5996db143bb73f035087af50',
+                        //                         winner: '599730b51897173a5d971f4b',
                         //                     },
-                        //                     invitee: '5996db143bb73f035087af50',
-                        //                     inviter: '5996fc3ddad666079747faba'
+                        //                     invitee: '5997305e1897173a5d971f49',
+                        //                     inviter: '599730b51897173a5d971f4b'
                         //                 },
                         //                 {
                         //                     score: {
-                        //                         winner: '5996db143bb73f035087af50',
+                        //                         winner: '5997328634e82d0f5c235c65',
                         //                     },
-                        //                     invitee: '5996db143bb73f035087af50',
-                        //                     inviter: '5996fc3ddad666079747faba'
+                        //                     invitee: '5997328634e82d0f5c235c65',
+                        //                     inviter: '599732bd34e82d0f5c235c67'
                         //                 }
                         //             ],
                         //             [
                         //                 {
                         //                     score: {
-                        //                         winner: '5996db143bb73f035087af50',
+                        //                         winner: '599730b51897173a5d971f4b',
                         //                     },
-                        //                     invitee: '5996db143bb73f035087af50',
-                        //                     inviter: '5996fc3ddad666079747faba'
+                        //                     invitee: '599730b51897173a5d971f4b',
+                        //                     inviter: '5997328634e82d0f5c235c65'
                         //                 }
                         //             ]
                         //         ]
@@ -398,10 +398,12 @@
 
             $scope.ShowTournament = function (Tournament) {
                 var container = $('body');
-                var tournamentContainer = $('.tournament_container');
+                var tournamentContainer = (true === $scope.TournamentFinished) ? $('.tournament_winner_announcement') : $('.tournament_container');
                 container.animate({
                     scrollTop: tournamentContainer .offset().top
                 });
+                $scope.ClickedShowTournament = true;
+
             };
                 $scope.InvitePlayer = function () {
                     ngDialog.open(

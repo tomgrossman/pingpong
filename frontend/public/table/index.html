@@ -72,18 +72,19 @@
             <div ng-repeat="stage in Tournament.stages track by $index" class="round round-{{$index+1}}">
                 <label style="color: green; padding-left: 20px;">Round {{$index + 1}}</label>
                 <div ng-repeat="match in stage" class="match match-{{$parent.$index+1}}">
-                    <div class="game game-top" ng-class="{winner: match.score.winner === match.invitee}">{{IdToName[match.invitee] || 'no player'}}</div>
+                    <div class="game game-top" ng-class="{winner: match.score.winner === match.invitee, no_player: !IdToName[match.invitee]}">{{IdToName[match.invitee].split(' ')[0]    || 'no player'}}</div>
                     <div class="game game-spacer game-spacer-{{$parent.$index+1}}">&nbsp;</div>
-                    <div class="game game-bottom" ng-class="{winner: match.score.winner === match.inviter}">{{IdToName[match.inviter] || 'no player'}}</div>
+                    <div class="game game-bottom" ng-class="{winner: match.score.winner === match.inviter, no_player: !IdToName[match.inviter]}">{{IdToName[match.inviter].split(' ')[0] || 'no player'}}</div>
                 </div>
             </div>
             <div class="round round-winner" ng-show="true === TournamentFinished">
+                <iframe style="opacity:0;" ng-if="true === TournamentFinished && true === ClickedShowTournament" src="https://www.youtube.com/embed/Gyu82WG_edM?autoplay=1"></iframe>
                 <div class="game game-top tournament_winner_announcement">
                     And the winner is:
                 </div>
                 <div class="game tournament_winner">
                     {{TournamentWinner}}
-                    &#128079 &#128079 &#128079 &#128079 &#128079
+                    &#128079 &#128079 &#128079 &#128079 &#128079 &#128079 &#128079 &#128079 &#128079 &#128079  &#128079 &#128079 &#128079 &#128079 &#128079
                 </div>
             </div>
         </div>

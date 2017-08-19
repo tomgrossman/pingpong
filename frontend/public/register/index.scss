@@ -1,5 +1,5 @@
 body {
-  background-color: #235279;
+    background-image: url(/img/ping-pong-background.jpg);
 }
 
 .register_container {
@@ -20,6 +20,9 @@ body {
 .form_col {
     width: 45%;
     float: left;
+    input {
+        background-color: beige;
+    }
 }
 .separator {
     float: left;
