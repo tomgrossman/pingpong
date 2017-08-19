@@ -1,5 +1,6 @@
 body {
-  background-color: #235279;
+  background-image: url('http://www.chicagosocial.com/images/uploads/cms/background_ping_pong.jpg');
+  background-size: 100% auto;
 }
 .navbar-header {
   .capital_red {
@@ -79,26 +80,25 @@ table {
 
 .tournament_container {
   margin-top: 100px;
-  background-color: #eee;
   padding-left: 20px;
   padding-top: 20px;
   padding-bottom: 20px;
-  height: 1740px;
+  position: relative;
 
   .round {
-    width: calc(16.666% - 3.333px);
     float: left;
     padding:0;
     &-winner {
-      padding-top: 770px;
-      width: calc(16.666% + 16px);
-      .game.tournament_winner_announcement {
-        color: green;
+      position: absolute;
+      top: 20px;
+      right: 0;
+      .tournament_winner_announcement {
+        color: pink;
         font-weight:bold;
         padding-right: 20px;
         padding-bottom:10px;
       }
-      .game.tournament_winner {
+      .tournament_winner {
         color: red;
         font-weight:bold;
         padding-right: 20px;

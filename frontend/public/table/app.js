@@ -2,7 +2,7 @@
     var MainApp = angular.module('MainApp', ['ngDialog', 'StaticServices']);
 
     var mainController = MainApp.controller('MainController',
-        function ($scope, $timeout, ngDialog, HttpRequest) {
+        function ($scope, $timeout, $sce, ngDialog, HttpRequest) {
             $scope.ShouldShowTournament = false;
             $scope.FullTable = [];
             $scope.FilteredTable = [];
@@ -356,7 +356,7 @@
                         //             [
                         //                 {
                         //                     score: {
-                        //                         winner: '599730b51897173a5d971f4b',
+                        //                         winner: '5997328634e82d0f5c235c65',
                         //                     },
                         //                     invitee: '599730b51897173a5d971f4b',
                         //                     inviter: '5997328634e82d0f5c235c65'
@@ -365,18 +365,20 @@
                         //         ]
                         // };
 
-                        // data.Data = {
-                        //     stages: [
-                        //         []
-                        //     ]
-                        // }
-
                         $scope.Tournament = data.Data;
                         var lastStage = $scope.Tournament.stages[$scope.Tournament.stages.length-1];
                         $scope.TournamentFinished = (1 === lastStage.length && lastStage[0].score.winner) ? true : false;
                         if (true === $scope.TournamentFinished) {
                             $scope.TournamentWinner = $scope.IdToName[lastStage[0].score.winner];
                         }
+                        $timeout(function () {
+                            var maxGamesPerRound = $scope.Tournament.stages[0].length;
+                            $('.tournament_container').height(maxGamesPerRound * 100 + 100);
+                            $('.round').width((100 / (Math.log2(maxGamesPerRound) + 2   ) + '%'));
+                            if(-1 === $('.round-winner').attr('style').indexOf('padding-left')) {
+                                $('.round-winner').attr('style', $('.round-winner').attr('style') + 'padding-left: 20px;');
+                            }
+                        }, 100);
                     }
                 );
             }
@@ -392,7 +394,7 @@
 
             setInterval(function () {
                 getTable();
-                // getTournament();
+                //getTournament();
             }, 5000);
 
 
@@ -405,25 +407,25 @@
                 $scope.ClickedShowTournament = true;
 
             };
-                $scope.InvitePlayer = function () {
-                    ngDialog.open(
-                        {
-                            template: '/html/table/popups/invite-player.html',
-                            className: 'ngdialog-theme-default',
-                            scope          : $scope,
-                            controller     : ['$scope', function ($scope) {
-                                $scope.ChoosePlayer = function (PlayerToInvite) {
-                                    HttpRequest(
-                                        {
-                                            method: 'POST',
-                                            url: '/matches/add-friendly-match/' + PlayerToInvite
-                                        }
-                                    ).then(
-                                        function () {
-                                            ngDialog.close();
-                                        }
-                                    )
-                            }
+            $scope.InvitePlayer = function () {
+                ngDialog.open(
+                    {
+                        template: '/html/table/popups/invite-player.html',
+                        className: 'ngdialog-theme-default',
+                        scope          : $scope,
+                        controller     : ['$scope', function ($scope) {
+                            $scope.ChoosePlayer = function (PlayerToInvite) {
+                                HttpRequest(
+                                    {
+                                        method: 'POST',
+                                        url: '/matches/add-friendly-match/' + PlayerToInvite
+                                    }
+                                ).then(
+                                    function () {
+                                        ngDialog.close();
+                                    }
+                                );
+                            };
                         }]
                     }
                 );
@@ -472,8 +474,26 @@
                             }
                         );
                     }
-                )
-            }
+                );
+            };
+
+            var embedYoutubePreffix = 'https://www.youtube.com/embed/';
+            var autoPlaySuffix = '?autoplay=1';
+            var songsToChoose = [
+                embedYoutubePreffix + 'skVg5FlVKS0' + autoPlaySuffix + '&start=1',
+                embedYoutubePreffix + 'HLSvJWSJ9cA' + autoPlaySuffix + '&start=2',
+                embedYoutubePreffix + 'mNU3aIJs88g' + autoPlaySuffix + '&start=260',
+                embedYoutubePreffix + '92cwKCU8Z5c' + autoPlaySuffix + '&start=235',
+                embedYoutubePreffix + 'pRQX6Xp2B48' + autoPlaySuffix + '&start=130',
+                embedYoutubePreffix + 'WjQgsyPkuCk' + autoPlaySuffix + '&start=107',
+                embedYoutubePreffix + 'ncQsBzI-JHc' + autoPlaySuffix + '&start=154',
+                embedYoutubePreffix + '5tepYJno7rU' + autoPlaySuffix + '&start=112',
+                embedYoutubePreffix + 'pmFpjBUhPA4' + autoPlaySuffix + '&start=158',
+                embedYoutubePreffix + '3wxyN3z9PL4' + autoPlaySuffix + '&start=195',
+                embedYoutubePreffix + 'Wmc8bQoL-J0' + autoPlaySuffix + '&start=217',
+            ];
+            var randomIndex = parseInt(Math.random() * songsToChoose.length);
+            $scope.RandomVictorySong = $sce.trustAsResourceUrl(songsToChoose[randomIndex]);
         }
     );
 }());

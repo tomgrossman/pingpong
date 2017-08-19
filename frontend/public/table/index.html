@@ -78,16 +78,19 @@
                 </div>
             </div>
             <div class="round round-winner" ng-show="true === TournamentFinished">
-                <iframe style="opacity:0;" ng-if="true === TournamentFinished && true === ClickedShowTournament" src="https://www.youtube.com/embed/Gyu82WG_edM?autoplay=1"></iframe>
-                <div class="game game-top tournament_winner_announcement">
+                <div class="tournament_winner_announcement">
                     And the winner is:
                 </div>
-                <div class="game tournament_winner">
+                <div class="tournament_winner">
                     {{TournamentWinner}}
-                    &#128079 &#128079 &#128079 &#128079 &#128079 &#128079 &#128079 &#128079 &#128079 &#128079  &#128079 &#128079 &#128079 &#128079 &#128079
                 </div>
+                <div class="tournament_winner">
+                &#128079 &#128079 &#128079 &#128079 &#128079
+                </div>
+
             </div>
         </div>
+        <iframe style="opacity:0; height:0; width:0;" ng-if="true === ClickedShowTournament" ng-src="{{RandomVictorySong}}"></iframe>
     </div>
 </body>
 
