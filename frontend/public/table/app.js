@@ -7,7 +7,7 @@
 
             $scope.ClickedShowTournament = false;
             $scope.WonMatch = false;
-            $scope.LostMatch = false;
+            $scope.LostMatch = true;
 
             $scope.FullTable = [];
             $scope.FilteredTable = [];
@@ -94,30 +94,31 @@
                 var songsToChoose = [
                     embedYoutubePreffix + 'mNU3aIJs88g' + autoPlaySuffix + '&start=260',// your simply the best,
                     embedYoutubePreffix + 'HLSvJWSJ9cA' + autoPlaySuffix + '&start=2',//go shorty its your birthday,
-                    embedYoutubePreffix + 'WjQgsyPkuCk' + autoPlaySuffix + '&start=107',//זכית בי
+                    embedYoutubePreffix + 'skVg5FlVKS0' + autoPlaySuffix + '&start=1',// we are the chaompions,
+                    // embedYoutubePreffix + 'WjQgsyPkuCk' + autoPlaySuffix + '&start=107',//זכית בי
                 ]
                 var randomIndex = parseInt(Math.random() * songsToChoose.length);
-                $scope.RandomVictorySong = $sce.trustAsResourceUrl(songsToChoose[randomIndex])
+                $scope.RandomVictorySong = $sce.trustAsResourceUrl(songsToChoose[randomIndex]);
             }
 
             function loseSong () {
                 var songsToChoose = [
-                    embedYoutubePreffix + 'pRQX6Xp2B48' + autoPlaySuffix + '&start=130',//וניצחת איתי הכל
-                    embedYoutubePreffix + '5tepYJno7rU' + autoPlaySuffix + '&start=112',//aint no mountain high enough
+                    // embedYoutubePreffix + 'pRQX6Xp2B48' + autoPlaySuffix + '&start=130',//וניצחת איתי הכל
                     embedYoutubePreffix + 'Wmc8bQoL-J0' + autoPlaySuffix + '&start=217',//survivor destinys child,
-                    embedYoutubePreffix + 'VjEq-r2agqc' + autoPlaySuffix + '&start=256'//dont give up kate bush
+                    embedYoutubePreffix + 'VjEq-r2agqc' + autoPlaySuffix + '&start=256',//dont give up kate bush
+                    embedYoutubePreffix+ '-ECUtkv2qV8' + autoPlaySuffix + '&start=122',//always look on the bright side of life
                 ]
                 var randomIndex = parseInt(Math.random() * songsToChoose.length);
-                $scope.RandomLoseSong = $sce.trustAsResourceUrl(songsToChoose[randomIndex])
+                $scope.RandomLoseSong = $sce.trustAsResourceUrl(songsToChoose[randomIndex]);
             }
 
             function tournamentSong () {
                 var songsToChoose = [
+                    embedYoutubePreffix + '5tepYJno7rU' + autoPlaySuffix + '&start=112',//aint no mountain high enough
                     embedYoutubePreffix + '92cwKCU8Z5c' + autoPlaySuffix + '&start=235',//the winner takes it all,
-                    embedYoutubePreffix + 'skVg5FlVKS0' + autoPlaySuffix + '&start=1',// we are the chaompions,
                     embedYoutubePreffix + 'ncQsBzI-JHc' + autoPlaySuffix + '&start=154',//bicycle race,
-                    embedYoutubePreffix + 'pmFpjBUhPA4' + autoPlaySuffix + '&start=158',//תחתונים וגופיות
-                    embedYoutubePreffix + '3wxyN3z9PL4' + autoPlaySuffix + '&start=195',//nothigs gonna stop us now,
+                    // embedYoutubePreffix + 'pmFpjBUhPA4' + autoPlaySuffix + '&start=158',//תחתונים וגופיות
+                    embedYoutubePreffix + '3wxyN3z9PL4' + autoPlaySuffix + '&start=195'//nothigs gonna stop us now,
                 ]
                 var randomIndex = parseInt(Math.random() * songsToChoose.length);
                 $scope.RandomTournamentSong = $sce.trustAsResourceUrl(songsToChoose[randomIndex]);
