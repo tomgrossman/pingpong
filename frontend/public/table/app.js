@@ -4,6 +4,11 @@
     var mainController = MainApp.controller('MainController',
         function ($scope, $timeout, $sce, ngDialog, HttpRequest) {
             $scope.ShouldShowTournament = false;
+
+            $scope.ClickedShowTournament = false;
+            $scope.WonMatch = false;
+            $scope.LostMatch = false;
+
             $scope.FullTable = [];
             $scope.FilteredTable = [];
             $scope.IdToName = {};
@@ -80,6 +85,48 @@
                 );
             }
 
+            var embedYoutubePreffix = 'https://www.youtube.com/embed/';
+            var autoPlaySuffix = '?autoplay=1';
+
+            function victorySong () {
+                var embedYoutubePreffix = 'https://www.youtube.com/embed/';
+                var autoPlaySuffix = '?autoplay=1';
+                var songsToChoose = [
+                    embedYoutubePreffix + 'mNU3aIJs88g' + autoPlaySuffix + '&start=260',// your simply the best,
+                    embedYoutubePreffix + 'HLSvJWSJ9cA' + autoPlaySuffix + '&start=2',//go shorty its your birthday,
+                    embedYoutubePreffix + 'WjQgsyPkuCk' + autoPlaySuffix + '&start=107',//זכית בי
+                ]
+                var randomIndex = parseInt(Math.random() * songsToChoose.length);
+                $scope.RandomVictorySong = $sce.trustAsResourceUrl(songsToChoose[randomIndex])
+            }
+
+            function loseSong () {
+                var songsToChoose = [
+                    embedYoutubePreffix + 'pRQX6Xp2B48' + autoPlaySuffix + '&start=130',//וניצחת איתי הכל
+                    embedYoutubePreffix + '5tepYJno7rU' + autoPlaySuffix + '&start=112',//aint no mountain high enough
+                    embedYoutubePreffix + 'Wmc8bQoL-J0' + autoPlaySuffix + '&start=217',//survivor destinys child,
+                    embedYoutubePreffix + 'VjEq-r2agqc' + autoPlaySuffix + '&start=256'//dont give up kate bush
+                ]
+                var randomIndex = parseInt(Math.random() * songsToChoose.length);
+                $scope.RandomLoseSong = $sce.trustAsResourceUrl(songsToChoose[randomIndex])
+            }
+
+            function tournamentSong () {
+                var songsToChoose = [
+                    embedYoutubePreffix + '92cwKCU8Z5c' + autoPlaySuffix + '&start=235',//the winner takes it all,
+                    embedYoutubePreffix + 'skVg5FlVKS0' + autoPlaySuffix + '&start=1',// we are the chaompions,
+                    embedYoutubePreffix + 'ncQsBzI-JHc' + autoPlaySuffix + '&start=154',//bicycle race,
+                    embedYoutubePreffix + 'pmFpjBUhPA4' + autoPlaySuffix + '&start=158',//תחתונים וגופיות
+                    embedYoutubePreffix + '3wxyN3z9PL4' + autoPlaySuffix + '&start=195',//nothigs gonna stop us now,
+                ]
+                var randomIndex = parseInt(Math.random() * songsToChoose.length);
+                $scope.RandomTournamentSong = $sce.trustAsResourceUrl(songsToChoose[randomIndex]);
+            }
+            victorySong();
+            loseSong();
+            tournamentSong();
+
+
             var LunchByPerson = {//TODO
                 Samuel: 'Sal Salat',
                 Maxim: 'Hummus Hagargir',
@@ -87,7 +134,7 @@
                 Tom: 'your Tapugezer? Ta\'im Lecha',
                 Lihi: 'Holmes Place',
                 Ido: 'Liv'
-            }
+            };
 
             function greetingByTime () {
                 var currentHour = (new Date()).getHours();
@@ -405,6 +452,8 @@
                     scrollTop: tournamentContainer .offset().top
                 });
                 $scope.ClickedShowTournament = true;
+                $scope.WonMatch = false;
+                $scope.LostMatch = false;
 
             };
             $scope.InvitePlayer = function () {
@@ -465,8 +514,19 @@
                                         ).then(
                                             function () {
                                                 ngDialog.close();
-                                                $scope.Greeting.Preffix = (true === IsWinner) ? 'Keep on rocking' : 'Don\'t lose hope';
-                                                $scope.Greeting.Suffix = (true === IsWinner) ? 'Challlenge yourself by playing against a better opponent' : 'Your\'e the winner material';
+                                                if (true === IsWinner) {
+                                                    $scope.WonMatch = true;
+                                                    $scope.LostMatch = false;
+                                                    $scope.ClickedShowTournament = false;
+                                                    $scope.Greeting.Preffix = 'Keep on rocking!';
+                                                    $scope.Greeting.Suffix = 'Challlenge yourself by playing against a better opponent';
+                                                } else {
+                                                    $scope.LostMatch = true;
+                                                    $scope.WonMatch = false;
+                                                    $scope.ClickedShowTournament = false;
+                                                    $scope.Greeting.Preffix = 'Don\'t lose hope';
+                                                    $scope.Greeting.Suffix = 'Your\'e the winner material'
+                                                }
                                             }
                                         );
                                     }
@@ -476,24 +536,6 @@
                     }
                 );
             };
-
-            var embedYoutubePreffix = 'https://www.youtube.com/embed/';
-            var autoPlaySuffix = '?autoplay=1';
-            var songsToChoose = [
-                embedYoutubePreffix + 'skVg5FlVKS0' + autoPlaySuffix + '&start=1',
-                embedYoutubePreffix + 'HLSvJWSJ9cA' + autoPlaySuffix + '&start=2',
-                embedYoutubePreffix + 'mNU3aIJs88g' + autoPlaySuffix + '&start=260',
-                embedYoutubePreffix + '92cwKCU8Z5c' + autoPlaySuffix + '&start=235',
-                embedYoutubePreffix + 'pRQX6Xp2B48' + autoPlaySuffix + '&start=130',
-                embedYoutubePreffix + 'WjQgsyPkuCk' + autoPlaySuffix + '&start=107',
-                embedYoutubePreffix + 'ncQsBzI-JHc' + autoPlaySuffix + '&start=154',
-                embedYoutubePreffix + '5tepYJno7rU' + autoPlaySuffix + '&start=112',
-                embedYoutubePreffix + 'pmFpjBUhPA4' + autoPlaySuffix + '&start=158',
-                embedYoutubePreffix + '3wxyN3z9PL4' + autoPlaySuffix + '&start=195',
-                embedYoutubePreffix + 'Wmc8bQoL-J0' + autoPlaySuffix + '&start=217',
-            ];
-            var randomIndex = parseInt(Math.random() * songsToChoose.length);
-            $scope.RandomVictorySong = $sce.trustAsResourceUrl(songsToChoose[randomIndex]);
         }
     );
 }());

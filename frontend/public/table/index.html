@@ -90,7 +90,9 @@
 
             </div>
         </div>
-        <iframe style="opacity:0; height:0; width:0;" ng-if="true === ClickedShowTournament" ng-src="{{RandomVictorySong}}"></iframe>
+        <iframe style="opacity:0; height:0; width:0;" ng-if="true === ClickedShowTournament" ng-src="{{RandomTournamentSong}}"></iframe>
+        <iframe style="opacity:0; height:0; width:0;" ng-if="true === WonMatch" ng-src="{{RandomVictorySong}}"></iframe>
+        <iframe style="opacity:0; height:0; width:0;" ng-if="true === LostMatch" ng-src="{{RandomLoseSong}}"></iframe>
     </div>
 </body>
 
