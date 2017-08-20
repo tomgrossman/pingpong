@@ -7,7 +7,7 @@
 
             $scope.ClickedShowTournament = false;
             $scope.WonMatch = false;
-            $scope.LostMatch = true;
+            $scope.LostMatch = false;
 
             $scope.FullTable = [];
             $scope.FilteredTable = [];
